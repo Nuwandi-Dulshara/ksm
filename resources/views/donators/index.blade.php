@@ -72,13 +72,13 @@ class="btn btn-sm btn-outline-primary me-2">
 </a>
 
 <form action="{{ route('donators.destroy', $donator->id) }}"
-method="POST" class="d-inline">
+method="POST" class="d-inline js-delete-form"
+data-confirm-text="This donator will be permanently deleted.">
 @csrf
 @method('DELETE')
 
 <button type="submit"
-class="btn btn-sm btn-outline-danger"
-onclick="return confirm('Delete this donator?')">
+class="btn btn-sm btn-outline-danger">
 <i class="fa-solid fa-trash"></i>
 </button>
 </form>

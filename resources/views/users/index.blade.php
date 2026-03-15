@@ -73,13 +73,13 @@ class="btn btn-sm btn-outline-primary me-2">
 </a>
 
 <form action="{{ route('users.destroy', $user->id) }}"
-method="POST" class="d-inline">
+method="POST" class="d-inline js-delete-form"
+data-confirm-text="This user will be permanently deleted.">
 @csrf
 @method('DELETE')
 
 <button type="submit"
-class="btn btn-sm btn-outline-danger"
-onclick="return confirm('Delete this user?')">
+class="btn btn-sm btn-outline-danger">
 <i class="fa-solid fa-trash"></i>
 </button>
 </form>

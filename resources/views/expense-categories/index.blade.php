@@ -44,11 +44,11 @@ class="btn btn-sm btn-outline-primary me-2">
 </a>
 
 <form action="{{ route('expense-categories.destroy',$category->id) }}"
-method="POST" style="display:inline;">
+method="POST" style="display:inline;" class="js-delete-form"
+data-confirm-text="This category will be permanently deleted.">
 @csrf
 @method('DELETE')
 <button type="submit"
-onclick="return confirm('Delete this category?')"
 class="btn btn-sm btn-outline-danger">
 <i class="fa-solid fa-trash"></i>
 </button>
