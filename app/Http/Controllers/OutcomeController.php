@@ -81,7 +81,17 @@ class OutcomeController extends Controller
     {
         $expenseTypes = ExpenseType::all();
 
-        return view('outcomes.edit', compact('outcome','expenseTypes'));
+        // IMPORTANT: load categories for selected expense type
+        $categories = ExpenseCategory::where(
+            'expense_type_id',
+            $outcome->expense_type_id
+        )->orderBy('category_name')->get();
+
+        return view('outcomes.edit', compact(
+            'outcome',
+            'expenseTypes',
+            'categories'
+        ));
     }
 
     /*
