@@ -9,7 +9,10 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $pendingRequests = Outcome::where('status','pending')->latest()->get();
+        $pendingRequests = Outcome::with(['expenseCategory', 'creator'])
+            ->where('status','pending')
+            ->latest()
+            ->get();
 
         $totalIncome = Income::sum('amount');
 

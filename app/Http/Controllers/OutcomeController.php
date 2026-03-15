@@ -6,6 +6,7 @@ use App\Models\Outcome;
 use App\Models\ExpenseType;
 use App\Models\ExpenseCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OutcomeController extends Controller
 {
@@ -60,6 +61,7 @@ class OutcomeController extends Controller
         Outcome::create([
             'expense_type_id'      => $request->expense_type_id,
             'expense_category_id'  => $request->expense_category_id,
+            'created_by'           => Auth::id(),
             'amount'               => $request->amount,
             'date'                 => $request->date,
             'beneficiary'          => $request->beneficiary,
@@ -154,10 +156,12 @@ class OutcomeController extends Controller
 
         $outcome->update([
             'status'     => 'approved',
-            'admin_note' => null
+            'admin_note' => null,
+            'decided_by' => Auth::id(),
+            'decided_at' => now(),
         ]);
 
-        return redirect()->route('dashboard')
+        return redirect()->back()
                          ->with('success','Request Approved');
     }
 
@@ -176,10 +180,12 @@ class OutcomeController extends Controller
 
         $outcome->update([
             'status'     => 'rejected',
-            'admin_note' => $request->admin_note
+            'admin_note' => $request->admin_note,
+            'decided_by' => Auth::id(),
+            'decided_at' => now(),
         ]);
 
-        return redirect()->route('dashboard')
+        return redirect()->back()
                          ->with('success','Request Rejected');
     }
 

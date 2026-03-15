@@ -10,6 +10,7 @@ use App\Http\Controllers\OutcomeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\ApprovalHistoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -78,7 +79,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/outcome-report', [\App\Http\Controllers\OutcomeReportController::class, 'index'])
         ->name('outcome-report.index');
 
-    Route::view('/approval-history', 'approval-history')
+    Route::get('/approval-history', [ApprovalHistoryController::class, 'index'])
         ->name('approval.history');
 
     Route::view('/category-summary', 'category-summary')

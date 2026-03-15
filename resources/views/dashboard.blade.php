@@ -4,6 +4,12 @@
 
 <div class="container-fluid px-4 py-4">
 
+    @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @endif
+
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="fw-bold text-dark">Dashboard Overview</h2>
 
