@@ -75,13 +75,13 @@
 
                             <form action="{{ route('roles.destroy', $role->id) }}"
                                   method="POST"
-                                  class="d-inline">
+                                  class="d-inline js-delete-form"
+                                  data-confirm-text="This role will be permanently deleted.">
                                 @csrf
                                 @method('DELETE')
 
                                 <button type="submit"
-                                        class="btn btn-sm btn-outline-danger"
-                                        onclick="return confirm('Delete this role?')">
+                                        class="btn btn-sm btn-outline-danger">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </form>

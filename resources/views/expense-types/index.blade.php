@@ -43,11 +43,12 @@
 
                             <form action="{{ route('expense-types.destroy', $expenseType->id) }}"
                                   method="POST"
-                                  style="display:inline;">
+                                  style="display:inline;"
+                                  class="js-delete-form"
+                                  data-confirm-text="This expense type will be permanently deleted.">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit"
-                                        onclick="return confirm('Are you sure?')"
                                         class="btn btn-sm btn-outline-danger">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>

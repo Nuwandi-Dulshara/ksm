@@ -223,11 +223,13 @@
                         {{-- Delete --}}
                         <form action="{{ route('outcomes.destroy',$outcome->id) }}"
                             method="POST"
-                            style="display:inline;">
+                            style="display:inline;"
+                            class="js-delete-form"
+                            data-confirm-text="This expense will be permanently deleted.">
                             @csrf
                             @method('DELETE')
                             <button class="btn btn-sm btn-outline-danger"
-                                    onclick="return confirm('Are you sure you want to delete this expense?')"
+                                    type="submit"
                                     title="Delete">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
