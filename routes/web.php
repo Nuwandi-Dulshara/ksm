@@ -9,6 +9,7 @@ use App\Http\Controllers\ExpenseCategoryController;
 use App\Http\Controllers\OutcomeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IncomeController;
+use App\Http\Controllers\EmployeeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,8 +73,10 @@ Route::middleware(['auth'])->group(function () {
         [OutcomeController::class, 'reject'])
         ->name('outcomes.reject');
 
-    Route::view('/outcome-report', 'outcome-report')
-        ->name('outcome.report');
+    // Serve the view located at resources/views/outcome-report/index.blade.php
+    // Use controller so we can provide backend data and accept filters
+    Route::get('/outcome-report', [\App\Http\Controllers\OutcomeReportController::class, 'index'])
+        ->name('outcome-report.index');
 
     Route::view('/approval-history', 'approval-history')
         ->name('approval.history');
@@ -87,8 +90,8 @@ Route::middleware(['auth'])->group(function () {
     |--------------------------------------------------------------------------
     */
 
-    Route::view('/add-employee', 'add-employee')
-        ->name('add.employee');
+    Route::resource('employees', EmployeeController::class)
+        ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
 
     Route::view('/monthly-salary', 'monthly-salary')
         ->name('monthly.salary');

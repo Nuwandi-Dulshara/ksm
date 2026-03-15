@@ -34,10 +34,10 @@
             <i class="fa-solid fa-money-bill-transfer me-2"></i> Outcomes ++
         </a>
 
-        <a href="{{ route('outcome.report') }}"
-            class="nav-link text-white {{ request()->routeIs('outcome.report') ? 'active' : '' }}">
+        <a href="{{ route('outcome-report.index') }}"
+            class="nav-link text-white {{ request()->routeIs('outcome-report.index') ? 'active' : '' }}">
             <i class="fa-solid fa-chart-line me-2"></i> Outcome Report
-        </a> {{-- not working --}}
+        </a>
 
         <a href="{{ route('approval.history') }}"
             class="nav-link text-white {{ request()->routeIs('approval.history') ? 'active' : '' }}">
@@ -52,10 +52,10 @@
         <hr class="text-white-50">
 
         <!-- EMPLOYEE -->
-        <a href="{{ route('add.employee') }}"
-            class="nav-link text-white {{ request()->routeIs('add.employee') ? 'active' : '' }}">
+        <a href="{{ route('employees.index') }}"
+            class="nav-link text-white {{ request()->routeIs('employees.*') ? 'active' : '' }}">
             <i class="fa-solid fa-users me-2"></i> Employees
-        </a> {{-- not working --}}
+        </a>
 
         <a href="{{ route('donators.index') }}"
             class="nav-link text-white {{ request()->routeIs('roles.*') ? 'active' : '' }}">
