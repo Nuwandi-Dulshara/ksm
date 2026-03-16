@@ -42,12 +42,12 @@
         <a href="{{ route('approval.history') }}"
             class="nav-link text-white {{ request()->routeIs('approval.history') ? 'active' : '' }}">
             <i class="fa-solid fa-clock-rotate-left me-2"></i> Approval History
-        </a> {{-- not working --}}
+        </a>
 
         <a href="{{ route('category.summary') }}"
             class="nav-link text-white {{ request()->routeIs('category.summary') ? 'active' : '' }}">
             <i class="fa-solid fa-layer-group me-2"></i> Summary of Outcome
-        </a> {{-- not working --}}
+        </a>
 
         <hr class="text-white-50">
 

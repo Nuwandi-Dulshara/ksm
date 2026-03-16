@@ -11,6 +11,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ApprovalHistoryController;
+use App\Http\Controllers\CategorySummaryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -82,7 +83,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/approval-history', [ApprovalHistoryController::class, 'index'])
         ->name('approval.history');
 
-    Route::view('/category-summary', 'category-summary')
+    Route::get('/category-summary', [CategorySummaryController::class, 'index'])
         ->name('category.summary');
 
     /*
