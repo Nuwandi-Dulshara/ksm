@@ -10,7 +10,6 @@
             <p class="text-muted mb-0">Manage system access roles.</p>
         </div>
 
-
         <a href="{{ route('roles.create') }}" class="btn btn-primary fw-bold px-4">
             <i class="fa-solid fa-plus me-2"></i> Add New Role
         </a>
@@ -39,7 +38,7 @@
     </div>
 
     @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
+    <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
     <div class="card shadow-sm border-0">
@@ -53,6 +52,10 @@
                     <tr>
                         <th class="ps-4">Role Name</th>
                         <th>Description</th>
+
+                        <!-- ✅ NEW COLUMN -->
+                        <th>Permissions</th>
+
                         <th>Created At</th>
                         <th class="text-end pe-4">Actions</th>
                     </tr>
@@ -60,41 +63,58 @@
 
                 <tbody>
 
-                @forelse($roles as $role)
+                    @forelse($roles as $role)
                     <tr>
                         <td class="ps-4 fw-bold">{{ $role->name }}</td>
                         <td>{{ $role->description ?? '-' }}</td>
+
+                        <!-- ✅ SHOW PERMISSIONS -->
+                        <td>
+                            @if($role->permissions->count())
+                            @foreach($role->permissions as $perm)
+                            <div style="font-size: 12px;">
+                                <strong>{{ $perm->section }}</strong><br>
+
+                                <span class="text-success">C:{{ $perm->can_create ? '✔' : '✖' }}</span>
+                                <span class="text-primary">R:{{ $perm->can_read ? '✔' : '✖' }}</span>
+                                <span class="text-warning">U:{{ $perm->can_update ? '✔' : '✖' }}</span>
+                                <span class="text-danger">D:{{ $perm->can_delete ? '✔' : '✖' }}</span>
+                            </div>
+                            <hr class="my-1">
+                            @endforeach
+                            @else
+                            <span class="text-muted">No permissions</span>
+                            @endif
+                        </td>
+
                         <td>{{ $role->created_at->format('Y-m-d') }}</td>
 
                         <td class="text-end pe-4">
 
-                            <a href="{{ route('roles.edit', $role->id) }}"
-                               class="btn btn-sm btn-outline-primary me-2">
+                            <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-sm btn-outline-primary me-2">
                                 <i class="fa-solid fa-pen"></i>
                             </a>
 
-                            <form action="{{ route('roles.destroy', $role->id) }}"
-                                  method="POST"
-                                  class="d-inline js-delete-form"
-                                  data-confirm-text="This role will be permanently deleted.">
+                            <form action="{{ route('roles.destroy', $role->id) }}" method="POST"
+                                class="d-inline js-delete-form"
+                                data-confirm-text="This role will be permanently deleted.">
                                 @csrf
                                 @method('DELETE')
 
-                                <button type="submit"
-                                        class="btn btn-sm btn-outline-danger">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </form>
 
                         </td>
                     </tr>
-                @empty
+                    @empty
                     <tr>
-                        <td colspan="4" class="text-center py-4 text-muted">
+                        <td colspan="5" class="text-center py-4 text-muted">
                             No roles created yet.
                         </td>
                     </tr>
-                @endforelse
+                    @endforelse
 
                 </tbody>
             </table>

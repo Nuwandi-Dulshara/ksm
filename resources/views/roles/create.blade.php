@@ -5,9 +5,8 @@
 <div class="container-fluid px-4 py-4">
 
     <div class="d-flex align-items-center mb-4">
-        <a href="{{ route('roles.index') }}" 
-           class="btn btn-outline-secondary me-3 rounded-circle"
-           style="width: 40px; height: 40px; display:flex; align-items:center; justify-content:center;">
+        <a href="{{ route('roles.index') }}" class="btn btn-outline-secondary me-3 rounded-circle"
+            style="width: 40px; height: 40px; display:flex; align-items:center; justify-content:center;">
             <i class="fa-solid fa-arrow-left"></i>
         </a>
         <div>
@@ -29,22 +28,45 @@
 
                         <div class="mb-3">
                             <label class="form-label fw-bold">Role Name</label>
-                            <input type="text" name="name"
-                                   class="form-control @error('name') is-invalid @enderror"
-                                   placeholder="e.g. Admin, Manager, Accountant"
-                                   value="{{ old('name') }}" required>
+                            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
+                                placeholder="e.g. Admin, Manager, Accountant" value="{{ old('name') }}" required>
 
                             @error('name')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                            <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
                         <div class="mb-4">
                             <label class="form-label text-muted small">Description</label>
-                            <textarea name="description"
-                                      class="form-control @error('description') is-invalid @enderror"
-                                      rows="3"
-                                      placeholder="Optional description of this role">{{ old('description') }}</textarea>
+                            <textarea name="description" class="form-control @error('description') is-invalid @enderror"
+                                rows="3"
+                                placeholder="Optional description of this role">{{ old('description') }}</textarea>
+                        </div>
+
+                        <hr>
+
+                        <div class="form-section-title">Assign Permissions</div>
+
+                        <div class="row">
+                            <!-- AVAILABLE -->
+                            <div class="col-md-6">
+                                <h6>Available Sections</h6>
+                                <ul id="available" class="list-group">
+                                    @foreach($sections as $section)
+                                    <li class="list-group-item d-flex justify-content-between align-items-center"
+                                        data-section="{{ $section }}">
+                                        <span>{{ $section }}</span>
+                                        <button type="button" class="btn btn-sm btn-success add">+</button>
+                                    </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+
+                            <!-- SELECTED -->
+                            <div class="col-md-6">
+                                <h6>Selected Sections</h6>
+                                <div id="selected"></div>
+                            </div>
                         </div>
 
                         <div class="d-flex justify-content-end gap-2">
@@ -69,3 +91,50 @@
 </div>
 
 @endsection
+
+@push('scripts')
+<script>
+document.addEventListener('click', function(e) {
+
+    // ADD
+    if (e.target.classList.contains('add')) {
+        let li = e.target.closest('li');
+        let section = li.dataset.section;
+
+        let html = `
+        <div class="card mb-2 p-2">
+            <div class="d-flex justify-content-between">
+                <strong>${section}</strong>
+                <button type="button" class="btn btn-danger btn-sm remove">-</button>
+            </div>
+
+            <div class="mt-2">
+                <label><input type="checkbox" name="permissions[${section}][create]"> Create</label>
+                <label><input type="checkbox" name="permissions[${section}][read]" checked> Read</label>
+                <label><input type="checkbox" name="permissions[${section}][update]"> Update</label>
+                <label><input type="checkbox" name="permissions[${section}][delete]"> Delete</label>
+            </div>
+        </div>`;
+
+        document.getElementById('selected').insertAdjacentHTML('beforeend', html);
+        li.remove();
+    }
+
+    // REMOVE
+    if (e.target.classList.contains('remove')) {
+        let card = e.target.closest('.card');
+        let section = card.querySelector('strong').innerText;
+
+        let html = `
+        <li class="list-group-item d-flex justify-content-between align-items-center" data-section="${section}">
+            <span>${section}</span>
+            <button type="button" class="btn btn-sm btn-success add">+</button>
+        </li>`;
+
+        document.getElementById('available').insertAdjacentHTML('beforeend', html);
+        card.remove();
+    }
+
+});
+</script>
+@endpush
