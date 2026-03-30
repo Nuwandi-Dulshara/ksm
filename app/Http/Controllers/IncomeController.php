@@ -133,15 +133,27 @@ class IncomeController extends Controller
             'amount'         => 'required|numeric|min:0',
             'invoice_number' => 'required|unique:incomes,invoice_number,' . $income->id,
             'received_date'  => 'required|date',
+            'invoice_file'   => 'nullable|file|mimes:jpg,jpeg,png,pdf,webp|max:5120',
         ]);
 
-        $income->update([
+        $updateData = [
             'donator_id'     => $request->donator_id,
             'amount'         => $request->amount,
             'invoice_number' => $request->invoice_number,
             'received_date'  => $request->received_date,
             'description'    => $request->description,
-        ]);
+        ];
+
+        if ($request->hasFile('invoice_file')) {
+            if ($income->invoice_file && Storage::disk('public')->exists($income->invoice_file)) {
+                Storage::disk('public')->delete($income->invoice_file);
+            }
+
+            $updateData['invoice_file'] = $request->file('invoice_file')
+                ->store('invoices', 'public');
+        }
+
+        $income->update($updateData);
 
         return redirect()->route('income.index')
             ->with('success', 'Income updated successfully.');
