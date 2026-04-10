@@ -61,10 +61,10 @@
             class="nav-link text-white {{ request()->routeIs('roles.*') ? 'active' : '' }}">
             <i class="fa-solid fa-hand-holding-dollar me-2"></i> Donators
         </a>
-        {{--  this is not working area
+
         <a href="{{ route('monthly.salary') }}"
-        class="nav-link text-white {{ request()->routeIs('monthly.salary') ? 'active' : '' }}">
-        <i class="fa-solid fa-calendar-days me-2"></i> Monthly Salary List
+            class="nav-link text-white {{ request()->routeIs('monthly.salary') ? 'active' : '' }}">
+            <i class="fa-solid fa-calendar-days me-2"></i> Monthly Salary List
         </a>
 
         <a href="{{ route('approve.salary') }}"

@@ -10,6 +10,7 @@ use App\Http\Controllers\OutcomeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\ApprovalHistoryController;
 use App\Http\Controllers\CategorySummaryController;
 
@@ -95,10 +96,13 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('employees', EmployeeController::class)
         ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
 
-    Route::view('/monthly-salary', 'monthly-salary')
+    Route::get('/monthly-salary', [SalaryController::class, 'monthlyList'])
         ->name('monthly.salary');
 
-    Route::view('/approve-salary', 'approve-salary')
+    Route::post('/monthly-salary/approve', [SalaryController::class, 'approveMonthly'])
+        ->name('monthly.salary.approve');
+
+    Route::get('/approve-salary', [SalaryController::class, 'approvedList'])
         ->name('approve.salary');
 
     /*
