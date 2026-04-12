@@ -72,19 +72,24 @@
             <i class="fa-solid fa-check-double me-2"></i> Approve Salary List
         </a>
 
+        {{--this is not working
         <a href="{{ route('freelancers') }}"
-            class="nav-link text-white {{ request()->routeIs('freelancers') ? 'active' : '' }}">
-            <i class="fa-solid fa-laptop-code me-2"></i> Freelancers
+        class="nav-link text-white {{ request()->routeIs('freelancers') ? 'active' : '' }}">
+        <i class="fa-solid fa-laptop-code me-2"></i> Freelancers
         </a>
+        --}}
 
+        {{-- -this is not working 
         <a href="{{ route('social.media') }}"
-            class="nav-link text-white {{ request()->routeIs('social.media') ? 'active' : '' }}">
-            <i class="fa-solid fa-bullhorn me-2"></i> Social Media
+        class="nav-link text-white {{ request()->routeIs('social.media') ? 'active' : '' }}">
+        <i class="fa-solid fa-bullhorn me-2"></i> Social Media
         </a>
+        --}}
 
+        {{-- -this is not working
         <a href="{{ route('beneficiary') }}"
-            class="nav-link text-white {{ request()->routeIs('beneficiary') ? 'active' : '' }}">
-            <i class="fa-solid fa-hand-holding-heart me-2"></i> Help / Charity
+        class="nav-link text-white {{ request()->routeIs('beneficiary') ? 'active' : '' }}">
+        <i class="fa-solid fa-hand-holding-heart me-2"></i> Help / Charity
         </a>
         --}}
         <hr class="text-white-50">
