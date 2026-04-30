@@ -10,7 +10,7 @@
             <i class="fa-solid fa-arrow-left"></i>
         </a>
         <div>
-            <h2 class="fw-bold text-dark mb-0">Edit Role</h2>
+            <h2 class="fw-bold text-dark mb-0">Edit {{ __('messages.role') }}</h2>
             <p class="text-muted mb-0">Update role details.</p>
         </div>
     </div>
@@ -25,16 +25,16 @@
                 <div class="card shadow-sm border-0">
                     <div class="card-body p-4">
 
-                        <div class="form-section-title">Role Information</div>
+                        <div class="form-section-title">{{ __('messages.role') }} Information</div>
 
                         <div class="mb-3">
-                            <label class="form-label fw-bold">Role Name</label>
+                            <label class="form-label fw-bold">{{ __('messages.role') }} Name</label>
                             <input type="text" name="name" class="form-control" value="{{ old('name', $role->name) }}"
                                 required>
                         </div>
 
                         <div class="mb-4">
-                            <label class="form-label text-muted small">Description</label>
+                            <label class="form-label text-muted small">{{ __('messages.description') }}</label>
                             <textarea name="description" class="form-control"
                                 rows="3">{{ old('description', $role->description) }}</textarea>
                         </div>
@@ -43,7 +43,7 @@
 
                         <hr>
 
-                        <div class="form-section-title">Assign Permissions</div>
+                        <div class="form-section-title">Assign {{ __('messages.permissions') }}</div>
 
                         <div class="row">
                             <!-- AVAILABLE -->
@@ -115,12 +115,12 @@
 
                         <div class="d-flex justify-content-end gap-2 mt-3">
                             <a href="{{ route('roles.index') }}" class="btn btn-light border">
-                                Cancel
+                                {{ __('messages.cancel') }}
                             </a>
 
                             <button type="submit" class="btn btn-primary fw-bold px-4">
                                 <i class="fa-solid fa-save me-2"></i>
-                                Update Role
+                                Update {{ __('messages.role') }}
                             </button>
                         </div>
 

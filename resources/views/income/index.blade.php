@@ -2,7 +2,6 @@
 
 @section('styles')
 <style>
-/* Income Specific Styles */
 .card-income {
     border-left: 5px solid #10b981;
 }
@@ -25,12 +24,12 @@
 
 <div class="d-flex justify-content-between align-items-center mb-4">
     <div>
-        <h2 class="fw-bold text-dark">Income Management</h2>
-        <p class="text-muted mb-0">Track all incoming payments and invoices.</p>
+        <h2 class="fw-bold text-dark">{{ __('messages.income_management') }}</h2>
+        <p class="text-muted mb-0">{{ __('messages.track_all_incoming_payments') }}</p>
     </div>
 
     <button class="btn btn-add-income btn-lg shadow-sm" data-bs-toggle="modal" data-bs-target="#addIncomeModal">
-        <i class="fa-solid fa-plus me-2"></i> Record New Income
+        <i class="fa-solid fa-plus me-2"></i> {{ __('messages.record_new_income') }}
     </button>
 </div>
 
@@ -42,7 +41,7 @@
 <div class="row g-4 mb-4">
     <div class="col-md-4">
         <div class="card shadow-sm border-0 card-income p-3">
-            <p class="text-muted small mb-1">Total Income (This Month)</p>
+            <p class="text-muted small mb-1">{{ __('messages.total_income_this_month') }}</p>
             <h3 class="fw-bold text-success mb-0">
                 ${{ number_format($totalThisMonth,2) }}
             </h3>
@@ -51,7 +50,7 @@
 
     <div class="col-md-4">
         <div class="card shadow-sm border-0 p-3">
-            <p class="text-muted small mb-1">Last Month</p>
+            <p class="text-muted small mb-1">{{ __('messages.last_month') }}</p>
             <h3 class="fw-bold text-dark mb-0">
                 ${{ number_format($lastMonth,2) }}
             </h3>
@@ -59,7 +58,7 @@
     </div>
 </div>
 
-{{-- Filter Section (UI only for now) --}}
+{{-- Filter Section --}}
 <div class="card shadow-sm border-0 mb-4">
     <div class="card-body p-3">
         <form method="GET" action="{{ route('income.index') }}">
@@ -69,11 +68,11 @@
                 </div>
                 <div class="col-md-5">
                     <input type="text" name="search" class="form-control"
-                        placeholder="Search by donator or invoice number..." value="{{ request('search') }}">
+                        placeholder="{{ __('messages.search_by_donator') }}" value="{{ request('search') }}">
                 </div>
                 <div class="col-md-2">
                     <button class="btn btn-outline-secondary w-100">
-                        Filter
+                        {{ __('messages.filter') }}
                     </button>
                 </div>
             </div>
@@ -84,19 +83,19 @@
 {{-- Transaction Table --}}
 <div class="card shadow-sm border-0">
     <div class="card-header bg-white py-3 fw-bold">
-        <i class="fa-solid fa-list me-2 text-muted"></i> Transaction History
+        <i class="fa-solid fa-list me-2 text-muted"></i> {{ __('messages.transaction_history') }}
     </div>
 
     <div class="table-responsive">
         <table class="table table-hover align-middle mb-0">
             <thead class="bg-light">
                 <tr>
-                    <th class="ps-4">Date</th>
-                    <th>Source / Donator</th>
-                    <th>Invoice #</th>
-                    <th>Description</th>
-                    <th>Amount</th>
-                    <th class="text-end pe-4">Actions</th>
+                    <th class="ps-4">{{ __('messages.date') }}</th>
+                    <th>{{ __('messages.source_donator') }}</th>
+                    <th>{{ __('messages.invoice_number_short') }}</th>
+                    <th>{{ __('messages.description') }}</th>
+                    <th>{{ __('messages.amount') }}</th>
+                    <th class="text-end pe-4">{{ __('messages.actions') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -125,18 +124,15 @@
 
                     <td class="text-end pe-4">
 
-                        {{-- View Invoice --}}
                         <a href="{{ route('income.show', $income->id) }}" class="btn btn-sm btn-light border"
                             title="View Invoice">
                             <i class="fa-solid fa-file-pdf text-danger"></i>
                         </a>
 
-                        {{-- Edit --}}
                         <a href="{{ route('income.edit', $income->id) }}" class="btn btn-sm btn-outline-primary">
                             <i class="fa-solid fa-pen"></i>
                         </a>
 
-                        {{-- Delete --}}
                         <form action="{{ route('income.destroy', $income->id) }}" method="POST"
                             class="d-inline js-delete-form"
                             data-confirm-text="This income will be permanently deleted.">
@@ -164,8 +160,6 @@
     </div>
 </div>
 
-{{-- Create Modal --}}
 @include('income.partials.create-modal')
 
 @endsection
-

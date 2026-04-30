@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monthly Salary Sheet | AccoSys</title>
+    <title>Monthly {{ __('messages.salary') }} Sheet | AccoSys</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -144,7 +144,7 @@
 
     <div class="toolbar no-print">
         <div class="d-flex align-items-center gap-3">
-            <h5 class="mb-0 me-3">Salary Sheet</h5>
+            <h5 class="mb-0 me-3">{{ __('messages.salary') }} Sheet</h5>
 
             <form method="GET" action="{{ route('approve.salary') }}" class="d-flex align-items-center gap-2 mb-0">
                 <div class="input-group input-group-sm">
@@ -153,7 +153,7 @@
                         value="{{ $salaryMonthValue }}">
                 </div>
                 <button type="submit" class="btn btn-primary btn-sm fw-bold">
-                    <i class="fa-solid fa-filter me-1"></i> Filter
+                    <i class="fa-solid fa-filter me-1"></i> {{ __('messages.filter') }}
                 </button>
             </form>
         </div>
@@ -182,7 +182,7 @@
                 <div class="small">100m Street, Erbil, Iraq</div>
             </div>
             <div class="text-end">
-                <h3 class="fw-bold mb-0">SALARY SHEET</h3>
+                <h3 class="fw-bold mb-0">{{ strtoupper(__('messages.salary')) }} SHEET</h3>
                 <div class="fw-bold fs-5" id="sheetDateDisplay">Month: {{ $salaryMonthLabel }}</div>
             </div>
         </div>
@@ -193,7 +193,7 @@
                     <th style="width: 40px;">No.</th>
                     <th style="text-align: left;">Employee Name</th>
                     <th style="text-align: left;">Position</th>
-                    <th style="width: 100px;">Basic Salary</th>
+                    <th style="width: 100px;">Basic {{ __('messages.salary') }}</th>
                     <th style="width: 80px;">Bonus (+)</th>
                     <th style="width: 80px;">Deduct (-)</th>
                     <th style="width: 110px;">Net Payable</th>
@@ -223,7 +223,7 @@
             </tbody>
             <tfoot>
                 <tr class="total-row">
-                    <td colspan="3" class="text-end pe-3">GRAND TOTAL</td>
+                    <td colspan="3" class="text-end pe-3">{{ __('messages.grand_total') }}</td>
                     <td class="text-end">${{ number_format($totals['basic_salary'], 2) }}</td>
                     <td class="text-end">{{ $totals['bonus'] > 0 ? '$' . number_format($totals['bonus'], 2) : '-' }}
                     </td>
@@ -236,8 +236,8 @@
         </table>
 
         <div class="admin-signatures">
-            <div class="sign-line">Prepared By (HR)</div>
-            <div class="sign-line">Checked By (Accountant)</div>
+            <div class="sign-line">{{ __('messages.prepared_by') }} (HR)</div>
+            <div class="sign-line">Checked By ({{ __('messages.accountant') }})</div>
             <div class="sign-line">
                 @if($approvedSheet)
                 <div>Approved By (Manager)</div>

@@ -61,7 +61,7 @@
         <div class="header-bg text-center">
             <h3 class="mb-0 fw-bold">
                 <i class="fa-solid fa-file-invoice-dollar me-2"></i>
-                New Outcome Request
+                {{ __('messages.new_outcome_request') }}
             </h3>
             <p class="mb-0 text-white-50">
                 Submit an expense for admin approval
@@ -75,7 +75,7 @@
                 <!-- Amount & Date -->
                 <div class="row g-3 mb-4">
                     <div class="col-md-6">
-                        <label class="form-label fw-bold">Amount</label>
+                        <label class="form-label fw-bold">{{ __('messages.amount') }}</label>
                         <div class="input-group">
                             <span class="input-group-text">$</span>
                             <input type="number" name="amount" class="form-control form-control-lg" required>
@@ -83,7 +83,7 @@
                     </div>
 
                     <div class="col-md-6">
-                        <label class="form-label fw-bold">Date</label>
+                        <label class="form-label fw-bold">{{ __('messages.date') }}</label>
                         <input type="date" name="date" class="form-control form-control-lg" required>
                     </div>
                 </div>
@@ -123,13 +123,13 @@
 
                 <!-- Beneficiary -->
                 <div class="mb-3">
-                    <label class="form-label fw-bold">Beneficiary</label>
+                    <label class="form-label fw-bold">{{ __('messages.beneficiary') }}</label>
                     <input type="text" name="beneficiary" class="form-control">
                 </div>
 
                 <!-- Description -->
                 <div class="mb-3">
-                    <label class="form-label fw-bold">Description</label>
+                    <label class="form-label fw-bold">{{ __('messages.description') }}</label>
                     <textarea name="description" class="form-control"></textarea>
                 </div>
 
@@ -146,7 +146,7 @@
 
                 <div class="d-grid">
                     <button type="submit" class="btn btn-primary btn-lg fw-bold">
-                        Submit Request
+                        {{ __('messages.submit_request') }}
                     </button>
                 </div>
 

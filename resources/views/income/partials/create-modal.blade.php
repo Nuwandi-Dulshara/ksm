@@ -7,7 +7,8 @@
 
                 <div class="modal-header bg-success text-white">
                     <h5 class="modal-title fw-bold">
-                        <i class="fa-solid fa-circle-plus me-2"></i>Record Income
+                        <i class="fa-solid fa-circle-plus me-2"></i>
+                        {{ __('messages.record_income') }}
                     </h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
@@ -15,7 +16,9 @@
                 <div class="modal-body p-4">
 
                     <div class="mb-3">
-                        <label class="form-label fw-bold">Amount Received</label>
+                        <label class="form-label fw-bold">
+                            {{ __('messages.amount_received') }}
+                        </label>
                         <div class="input-group">
                             <span class="input-group-text">$</span>
                             <input type="number" name="amount" class="form-control form-control-lg" required>
@@ -24,44 +27,51 @@
 
                     <div class="row g-2 mb-3">
                         <div class="col-6">
-                            <label class="form-label small text-muted">Client / Source</label>
+                            <label class="form-label small text-muted">
+                                {{ __('messages.client_source') }}
+                            </label>
                             <select name="donator_id" class="form-select" required>
                                 <option value="">Select Donator</option>
                                 @foreach($donators as $donator)
-                                    <option value="{{ $donator->id }}">
-                                        {{ $donator->full_name }}
-                                    </option>
+                                <option value="{{ $donator->id }}">
+                                    {{ $donator->full_name }}
+                                </option>
                                 @endforeach
                             </select>
                         </div>
 
                         <div class="col-6">
-                            <label class="form-label small text-muted">Invoice Number</label>
-                            <input type="text"
-                                   class="form-control"
-                                   value="{{ $nextInvoiceNumber }}"
-                                   readonly>
+                            <label class="form-label small text-muted">
+                                {{ __('messages.invoice_number') }}
+                            </label>
+                            <input type="text" class="form-control" value="{{ $nextInvoiceNumber }}" readonly>
                         </div>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label small text-muted">Date Received</label>
+                        <label class="form-label small text-muted">
+                            {{ __('messages.date_received') }}
+                        </label>
                         <input type="date" name="received_date" class="form-control" required>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label small text-muted">Description</label>
+                        <label class="form-label small text-muted">
+                            {{ __('messages.description') }}
+                        </label>
                         <textarea name="description" class="form-control" rows="2"></textarea>
                     </div>
 
                     <div class="mb-4">
-                        <label class="form-label small text-muted">Attach Invoice (PDF/Img)</label>
+                        <label class="form-label small text-muted">
+                            {{ __('messages.attach_invoice') }}
+                        </label>
                         <input type="file" name="invoice_file" class="form-control">
                     </div>
 
                     <div class="d-grid">
                         <button type="submit" class="btn btn-success btn-lg fw-bold">
-                            Save Record
+                            {{ __('messages.save_record') }}
                         </button>
                     </div>
 

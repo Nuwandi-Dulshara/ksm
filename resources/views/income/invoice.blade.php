@@ -102,7 +102,7 @@ body {
                         <p class="text-muted">support@accosys.com</p>
                     </div>
                     <div class="invoice-header-meta">
-                        <h2 class="fw-bold">INVOICE</h2>
+                        <h2 class="fw-bold">{{ __('messages.invoice') }}</h2>
                         <h5 class="text-muted">#{{ $income->invoice_number }}</h5>
                         <span class="badge bg-success fs-6 mt-2">PAID IN FULL</span>
                     </div>
@@ -111,7 +111,7 @@ body {
                 {{-- Bill To --}}
                 <div class="row border-top border-bottom py-4 mb-4">
                     <div class="col-md-6">
-                        <small class="text-muted text-uppercase fw-bold">Bill To</small>
+                        <small class="text-muted text-uppercase fw-bold">{{ __('messages.bill_to') }}</small>
                         <h5 class="fw-bold mt-1">{{ $income->donator->full_name }}</h5>
                         <p class="text-muted mb-0">{{ $income->donator->address ?? 'No address provided' }}</p>
                         <p class="text-muted">{{ $income->donator->email ?? 'No email provided' }}</p>
@@ -130,8 +130,8 @@ body {
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Description</th>
-                                <th class="text-end">Amount</th>
+                                <th>{{ __('messages.description') }}</th>
+                                <th class="text-end">{{ __('messages.amount') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -155,7 +155,7 @@ body {
                     <div class="col-md-6">
                         <div class="total-box">
                             <div class="d-flex justify-content-between">
-                                <strong class="fs-5">Grand Total</strong>
+                                <strong class="fs-5">{{ __('messages.grand_total') }}</strong>
                                 <strong class="fs-4 text-success">${{ number_format($income->amount, 2) }}</strong>
                             </div>
                         </div>
@@ -189,6 +189,11 @@ function printInvoice() {
         clientEmail: '{{ addslashes($income->donator->email ?? "No email provided") }}',
         description: '{{ addslashes($income->description ?? "Income Payment") }}',
         amount: '{{ number_format($income->amount, 2) }}',
+        invoiceLabel: @json(__('messages.invoice')),
+        billToLabel: @json(__('messages.bill_to')),
+        descriptionLabel: @json(__('messages.description')),
+        amountLabel: @json(__('messages.amount')),
+        grandTotalLabel: @json(__('messages.grand_total')),
     };
 
     // ── Self-contained print HTML (no Bootstrap grid, pure table layout) ───
@@ -196,7 +201,7 @@ function printInvoice() {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Invoice ${data.invoiceNumber}</title>
+    <title>${data.invoiceLabel} ${data.invoiceNumber}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -366,7 +371,7 @@ function printInvoice() {
             </div>
         </div>
         <div class="inv-header-right">
-            <h2 class="inv-title">INVOICE</h2>
+            <h2 class="inv-title">${data.invoiceLabel}</h2>
             <div class="inv-number">#${data.invoiceNumber}</div>
             <span class="badge-paid">PAID IN FULL</span>
         </div>
@@ -375,7 +380,7 @@ function printInvoice() {
     <!-- BILL TO -->
     <div class="inv-billto">
         <div class="inv-billto-left">
-            <div class="label-small">Bill To</div>
+            <div class="label-small">${data.billToLabel}</div>
             <div class="client-name">${data.clientName}</div>
             <div class="text-muted">${data.clientAddress}</div>
             <div class="text-muted">${data.clientEmail}</div>
@@ -391,8 +396,8 @@ function printInvoice() {
         <thead>
             <tr>
                 <th style="width:40px">#</th>
-                <th>Description</th>
-                <th class="text-right">Amount</th>
+                <th>${data.descriptionLabel}</th>
+                <th class="text-right">${data.amountLabel}</th>
             </tr>
         </thead>
         <tbody>
@@ -414,7 +419,7 @@ function printInvoice() {
         </div>
         <div class="inv-bottom-right">
             <div class="total-box">
-                <span class="total-label">Grand Total</span>
+                <span class="total-label">${data.grandTotalLabel}</span>
                 <span class="total-amount">$${data.amount}</span>
             </div>
         </div>

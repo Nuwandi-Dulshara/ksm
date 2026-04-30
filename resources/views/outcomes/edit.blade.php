@@ -69,7 +69,7 @@ body {
         <div class="header-bg text-center">
             <h3 class="mb-0 fw-bold">
                 <i class="fa-solid fa-pen-to-square me-2"></i>
-                Edit Outcome Request
+                {{ __('messages.edit_outcome_request') }}
             </h3>
             <p class="mb-0 text-white-50">
                 Update expense information
@@ -86,7 +86,7 @@ body {
                 <div class="row g-3 mb-4">
 
                     <div class="col-md-6">
-                        <label class="form-label fw-bold">Amount</label>
+                        <label class="form-label fw-bold">{{ __('messages.amount') }}</label>
                         <div class="input-group">
                             <span class="input-group-text">$</span>
                             <input type="number" name="amount" class="form-control form-control-lg"
@@ -95,7 +95,7 @@ body {
                     </div>
 
                     <div class="col-md-6">
-                        <label class="form-label fw-bold">Date</label>
+                        <label class="form-label fw-bold">{{ __('messages.date') }}</label>
                         <input type="date" name="date" class="form-control form-control-lg"
                             value="{{ old('date',$outcome->date) }}" required>
                     </div>
@@ -157,7 +157,7 @@ body {
                 <!-- Beneficiary -->
 
                 <div class="mb-3">
-                    <label class="form-label fw-bold">Beneficiary</label>
+                    <label class="form-label fw-bold">{{ __('messages.beneficiary') }}</label>
 
                     <input type="text" name="beneficiary" class="form-control"
                         value="{{ old('beneficiary',$outcome->beneficiary) }}">
@@ -167,7 +167,7 @@ body {
                 <!-- Description -->
 
                 <div class="mb-3">
-                    <label class="form-label fw-bold">Description</label>
+                    <label class="form-label fw-bold">{{ __('messages.description') }}</label>
 
                     <textarea name="description"
                         class="form-control">{{ old('description',$outcome->description) }}</textarea>

@@ -27,13 +27,13 @@ style="width:40px;height:40px;display:flex;align-items:center;justify-content:ce
 <div class="form-section-title">User Information</div>
 
 <div class="mb-3">
-<label class="form-label fw-bold">Full Name</label>
+<label class="form-label fw-bold">{{ __('messages.full_name') }}</label>
 <input type="text" name="name" class="form-control"
 value="{{ $user->name }}" required>
 </div>
 
 <div class="mb-3">
-<label class="form-label fw-bold">Username</label>
+<label class="form-label fw-bold">{{ __('messages.username') }}</label>
 <input type="text" name="username" class="form-control"
 value="{{ $user->username }}" required>
 </div>
@@ -50,9 +50,9 @@ value="{{ $user->email }}" required>
 </div>
 
 <div class="mb-4">
-<label class="form-label fw-bold">Assign Role</label>
+<label class="form-label fw-bold">Assign {{ __('messages.role') }}</label>
 <select name="role_id" class="form-select">
-<option value="">Select Role</option>
+<option value="">Select {{ __('messages.role') }}</option>
 @foreach($roles as $role)
 <option value="{{ $role->id }}"
 {{ $user->role_id == $role->id ? 'selected' : '' }}>
@@ -63,7 +63,7 @@ value="{{ $user->email }}" required>
 </div>
 
 <div class="d-flex justify-content-end gap-2">
-<a href="{{ route('users.index') }}" class="btn btn-light border">Cancel</a>
+<a href="{{ route('users.index') }}" class="btn btn-light border">{{ __('messages.cancel') }}</a>
 <button type="submit" class="btn btn-primary fw-bold px-4">
 <i class="fa-solid fa-save me-2"></i> Update User
 </button>
