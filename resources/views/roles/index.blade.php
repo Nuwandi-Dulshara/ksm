@@ -6,12 +6,12 @@
 
     <div class="d-flex justify-content-between align-items-center mb-5">
         <div>
-            <h2 class="fw-bold text-dark">Role Management</h2>
+            <h2 class="fw-bold text-dark">{{ __('messages.role') }} Management</h2>
             <p class="text-muted mb-0">Manage system access roles.</p>
         </div>
 
         <a href="{{ route('roles.create') }}" class="btn btn-primary fw-bold px-4">
-            <i class="fa-solid fa-plus me-2"></i> Add New Role
+            <i class="fa-solid fa-plus me-2"></i> Add New {{ __('messages.role') }}
         </a>
     </div>
 
@@ -22,7 +22,7 @@
                 <div class="card-body d-flex justify-content-between align-items-center p-4">
                     <div>
                         <h6 class="text-uppercase text-muted fw-semibold mb-2">
-                            Total Roles
+                            Total {{ __('messages.role') }}s
                         </h6>
                         <h2 class="fw-bold mb-0">{{ $totalRoles }}</h2>
                         <small class="text-muted">System roles</small>
@@ -43,21 +43,21 @@
 
     <div class="card shadow-sm border-0">
         <div class="card-header bg-white py-3 fw-bold">
-            <i class="fa-solid fa-user-shield me-2 text-muted"></i> All Roles
+            <i class="fa-solid fa-user-shield me-2 text-muted"></i> All {{ __('messages.role') }}s
         </div>
 
         <div class="table-responsive">
             <table class="table table-hover align-middle mb-0">
                 <thead class="bg-light">
                     <tr>
-                        <th class="ps-4">Role Name</th>
-                        <th>Description</th>
+                        <th class="ps-4">{{ __('messages.role') }} Name</th>
+                        <th>{{ __('messages.description') }}</th>
 
                         <!-- ✅ NEW COLUMN -->
-                        <th>Permissions</th>
+                        <th>{{ __('messages.permissions') }}</th>
 
-                        <th>Created At</th>
-                        <th class="text-end pe-4">Actions</th>
+                        <th>{{ __('messages.created_at') }}</th>
+                        <th class="text-end pe-4">{{ __('messages.actions') }}</th>
                     </tr>
                 </thead>
 

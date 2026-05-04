@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Employees')
+@section('title', __('messages.employees'))
 
 @section('styles')
 <style>
@@ -25,12 +25,12 @@
 <div class="container-fluid py-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h2 class="fw-bold mb-0">Employees</h2>
+            <h2 class="fw-bold mb-0">{{ __('messages.employees') }}</h2>
             <p class="text-muted mb-0">Manage employee profiles and payroll setup.</p>
         </div>
 
         <a href="{{ route('employees.create') }}" class="btn btn-primary">
-            <i class="fa-solid fa-plus me-2"></i> Add Employee
+            <i class="fa-solid fa-plus me-2"></i> {{ __('messages.add_employee') }}
         </a>
     </div>
 
@@ -40,7 +40,7 @@
                 <div class="card-body d-flex justify-content-between align-items-center p-4">
                     <div>
                         <h6 class="text-uppercase text-muted fw-semibold mb-2">
-                            Total Employees
+                            {{ __('messages.total_employees') }}
                         </h6>
                         <h2 class="fw-bold mb-0">
                             {{ $totalEmployees }}
@@ -68,43 +68,61 @@
                 <table class="table table-hover mb-0 employee-table">
                     <thead class="table-light">
                         <tr>
-                            <th class="px-4 py-3">Full Name</th>
-                            <th class="py-3">Job Title</th>
-                            <th class="py-3">Gender</th>
+                            <th class="px-4 py-3">{{ __('messages.full_name') }}</th>
+                            <th class="py-3">{{ __('messages.job_title') }}</th>
+                            <th class="py-3">{{ __('messages.gender') }}</th>
                             <th class="py-3">Date of Birth</th>
                             <th class="py-3">Phone</th>
                             <th class="py-3">Email</th>
-                            <th class="py-3 text-end">Salary</th>
-                            <th class="py-3">Join Date</th>
-                            <th class="py-3">Status</th>
-                            <th class="py-3">Payment Method</th>
+                            <th class="py-3 text-end">{{ __('messages.salary') }}</th>
+                            <th class="py-3">{{ __('messages.join_date') }}</th>
+                            <th class="py-3">{{ __('messages.employment_status') }}</th>
+                            <th class="py-3">{{ __('messages.payment_method') }}</th>
                             <th class="py-3">Bank Details</th>
-                            <th class="py-3">Document</th>
-                            <th class="py-3 text-center pe-4">Action</th>
+                            <th class="py-3">{{ __('messages.documents') }}</th>
+                            <th class="py-3 text-center pe-4">{{ __('messages.actions') }}</th>
                         </tr>
                     </thead>
+
                     <tbody>
                         @forelse($employees as $employee)
                         <tr>
                             <td class="px-4 py-3 employee-name">
                                 <div class="fw-bold">{{ $employee->full_name }}</div>
                             </td>
+
                             <td class="py-3">{{ $employee->job_title ?: 'Not specified' }}</td>
                             <td class="py-3 text-capitalize">{{ $employee->gender ?: 'Not specified' }}</td>
+
                             <td class="py-3">
                                 {{ $employee->date_of_birth ? \Carbon\Carbon::parse($employee->date_of_birth)->format('M d, Y') : 'Not specified' }}
                             </td>
+
                             <td class="py-3">{{ $employee->phone_number ?: 'Not specified' }}</td>
                             <td class="py-3">{{ $employee->email ?: 'No email provided' }}</td>
-                            <td class="py-3 text-end">${{ number_format($employee->base_monthly_salary, 2) }}</td>
-                            <td class="py-3">{{ \Carbon\Carbon::parse($employee->join_date)->format('M d, Y') }}</td>
+
+                            <td class="py-3 text-end">
+                                ${{ number_format($employee->base_monthly_salary, 2) }}
+                            </td>
+
+                            <td class="py-3">
+                                {{ \Carbon\Carbon::parse($employee->join_date)->format('M d, Y') }}
+                            </td>
+
                             <td class="py-3">
                                 <span class="badge bg-secondary text-uppercase">
                                     {{ str_replace('_', ' ', $employee->employment_status) }}
                                 </span>
                             </td>
-                            <td class="py-3 text-capitalize">{{ $employee->payment_method }}</td>
-                            <td class="py-3 employee-notes">{{ $employee->bank_details ?: 'No details provided' }}</td>
+
+                            <td class="py-3 text-capitalize">
+                                {{ $employee->payment_method }}
+                            </td>
+
+                            <td class="py-3 employee-notes">
+                                {{ $employee->bank_details ?: 'No details provided' }}
+                            </td>
+
                             <td class="py-3">
                                 @if($employee->document_path)
                                 <a href="{{ asset('storage/' . $employee->document_path) }}" target="_blank"
@@ -115,25 +133,27 @@
                                 <span class="text-muted">No file</span>
                                 @endif
                             </td>
+
                             <td class="py-3 text-center pe-4">
                                 <a href="{{ route('employees.edit', $employee) }}"
-                                    class="btn btn-sm btn-outline-primary me-1" title="Edit employee">
+                                    class="btn btn-sm btn-outline-primary me-1">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </a>
+
                                 <form action="{{ route('employees.destroy', $employee) }}" method="POST"
-                                    class="d-inline js-delete-form"
-                                    data-confirm-title="Delete employee?"
+                                    class="d-inline js-delete-form" data-confirm-title="Delete employee?"
                                     data-confirm-text="This employee profile will be permanently deleted."
                                     data-confirm-button="Yes, delete">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-outline-danger"
-                                        title="Delete employee">
+
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">
                                         <i class="fa-solid fa-trash"></i>
                                     </button>
                                 </form>
                             </td>
                         </tr>
+
                         @empty
                         <tr>
                             <td colspan="13" class="text-center text-muted py-5">
@@ -142,6 +162,7 @@
                         </tr>
                         @endforelse
                     </tbody>
+
                 </table>
             </div>
         </div>

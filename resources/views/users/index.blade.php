@@ -4,7 +4,7 @@
 
 <div class="d-flex justify-content-between align-items-center mb-5">
 <div>
-<h2 class="fw-bold">User Management</h2>
+<h2 class="fw-bold">{{ __('messages.user_management') }}</h2>
 <p class="text-muted mb-0">Manage system users.</p>
 </div>
 
@@ -50,10 +50,10 @@
 <thead class="bg-light">
 <tr>
 <th class="ps-4">Name</th>
-<th>Username</th>
+<th>{{ __('messages.username') }}</th>
 <th>Email</th>
-<th>Role</th>
-<th class="text-end pe-4">Actions</th>
+<th>{{ __('messages.role') }}</th>
+<th class="text-end pe-4">{{ __('messages.actions') }}</th>
 </tr>
 </thead>
 <tbody>

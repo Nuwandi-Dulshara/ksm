@@ -9,29 +9,29 @@
         <!-- DASHBOARD -->
         <a href="{{ route('dashboard') }}"
             class="nav-link text-white {{ request()->routeIs('dashboard') ? 'active' : '' }}">
-            <i class="fa-solid fa-house me-2"></i> Dashboard
+            <i class="fa-solid fa-house me-2"></i> {{ __('messages.dashboard') }}
         </a>
 
         <!-- INCOME -->
         <a href="{{ route('income.index') }}"
             class="nav-link text-white {{ request()->routeIs('income') ? 'active' : '' }}">
-            <i class="fa-solid fa-money-bill-trend-up me-2"></i> Incomes
+            <i class="fa-solid fa-money-bill-trend-up me-2"></i> {{ __('messages.incomes') }}
         </a>
 
 
         <a href="{{ route('expense-types.index') }}"
             class="nav-link text-white {{ request()->routeIs('expense-types.index') ? 'active' : '' }}">
-            <i class="fa-solid fa-tags me-2"></i> Expense Types
+            <i class="fa-solid fa-tags me-2"></i> {{ __('messages.expense_types') }}
         </a>
 
         <a href="{{ route('expense-categories.index') }}"
             class="nav-link text-white {{ request()->routeIs('expense-categories.index') ? 'active' : '' }}">
-            <i class="fa-solid fa-list me-2"></i> Expense Categories
+            <i class="fa-solid fa-list me-2"></i> {{ __('messages.expense_categories') }}
         </a>
 
         <a href="{{ route('outcomes.index') }}"
             class="nav-link text-white {{ request()->routeIs('outcomes.*') ? 'active' : '' }}">
-            <i class="fa-solid fa-money-bill-transfer me-2"></i> Outcomes ++
+            <i class="fa-solid fa-money-bill-transfer me-2"></i> {{ __('messages.outcome_plus') }}
         </a>
 
         <a href="{{ route('outcome-report.index') }}"
@@ -41,7 +41,7 @@
 
         <a href="{{ route('approval.history') }}"
             class="nav-link text-white {{ request()->routeIs('approval.history') ? 'active' : '' }}">
-            <i class="fa-solid fa-clock-rotate-left me-2"></i> Approval History
+            <i class="fa-solid fa-clock-rotate-left me-2"></i> {{ __('messages.approval_history') }}
         </a>
 
         <a href="{{ route('category.summary') }}"
@@ -54,22 +54,22 @@
         <!-- EMPLOYEE -->
         <a href="{{ route('employees.index') }}"
             class="nav-link text-white {{ request()->routeIs('employees.*') ? 'active' : '' }}">
-            <i class="fa-solid fa-users me-2"></i> Employees
+            <i class="fa-solid fa-users me-2"></i> {{ __('messages.employees') }}
         </a>
 
         <a href="{{ route('donators.index') }}"
             class="nav-link text-white {{ request()->routeIs('roles.*') ? 'active' : '' }}">
-            <i class="fa-solid fa-hand-holding-dollar me-2"></i> Donators
+            <i class="fa-solid fa-hand-holding-dollar me-2"></i> {{ __('messages.donators') }}
         </a>
 
         <a href="{{ route('monthly.salary') }}"
             class="nav-link text-white {{ request()->routeIs('monthly.salary') ? 'active' : '' }}">
-            <i class="fa-solid fa-calendar-days me-2"></i> Monthly Salary List
+            <i class="fa-solid fa-calendar-days me-2"></i> Monthly {{ __('messages.salary') }} List
         </a>
 
         <a href="{{ route('approve.salary') }}"
             class="nav-link text-white {{ request()->routeIs('approve.salary') ? 'active' : '' }}">
-            <i class="fa-solid fa-check-double me-2"></i> Approve Salary List
+            <i class="fa-solid fa-check-double me-2"></i> Approve {{ __('messages.salary') }} List
         </a>
 
         {{--this is not working
@@ -100,7 +100,7 @@
 
         <a href="{{ route('roles.index') }}"
             class="nav-link text-white {{ request()->routeIs('roles.*') ? 'active' : '' }}">
-            <i class="fa-solid fa-user-shield me-2"></i> Roles
+            <i class="fa-solid fa-user-shield me-2"></i> {{ __('messages.role') }}s
         </a>
 
         <hr class="text-white-50">

@@ -48,11 +48,11 @@
         <table class="table table-hover align-middle mb-0">
             <thead class="bg-light">
                 <tr>
-                    <th class="ps-4">Full Name</th>
+                    <th class="ps-4">{{ __('messages.full_name') }}</th>
                     <th>Contact</th>
                     <th>Email</th>
-                    <th>Address</th>
-                    <th class="text-end pe-4">Actions</th>
+                    <th>{{ __('messages.address') }}</th>
+                    <th class="text-end pe-4">{{ __('messages.actions') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -98,3 +98,5 @@
 </div>
 
 @endsection
+
+{{-- get words for excel- --}}

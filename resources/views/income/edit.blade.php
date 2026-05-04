@@ -10,7 +10,7 @@
             <i class="fa-solid fa-arrow-left"></i>
         </a>
         <div>
-            <h2 class="fw-bold text-dark mb-0">Edit Income</h2>
+            <h2 class="fw-bold text-dark mb-0">{{ __('messages.edit_income') }}</h2>
             <p class="text-muted mb-0">Update income details and attachment.</p>
         </div>
     </div>
@@ -28,7 +28,7 @@
 
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <label class="form-label fw-bold">Amount Received</label>
+                                <label class="form-label fw-bold">{{ __('messages.amount_received') }}</label>
                                 <div class="input-group">
                                     <span class="input-group-text">$</span>
                                     <input type="number" name="amount" class="form-control"
@@ -37,7 +37,7 @@
                             </div>
 
                             <div class="col-md-6">
-                                <label class="form-label fw-bold">Client / Source</label>
+                                <label class="form-label fw-bold">{{ __('messages.client_source') }}</label>
                                 <select name="donator_id" class="form-select" required>
                                     <option value="">Select Donator</option>
                                     @foreach($donators as $donator)
@@ -50,26 +50,26 @@
                             </div>
 
                             <div class="col-md-6">
-                                <label class="form-label fw-bold">Invoice Number</label>
+                                <label class="form-label fw-bold">{{ __('messages.invoice_number') }}</label>
                                 <input type="text" name="invoice_number" class="form-control"
                                     value="{{ old('invoice_number', $income->invoice_number) }}" required>
                             </div>
 
                             <div class="col-md-6">
-                                <label class="form-label fw-bold">Date Received</label>
+                                <label class="form-label fw-bold">{{ __('messages.date_received') }}</label>
                                 <input type="date" name="received_date" class="form-control"
                                     value="{{ old('received_date', \Illuminate\Support\Carbon::parse($income->received_date)->format('Y-m-d')) }}"
                                     required>
                             </div>
 
                             <div class="col-12">
-                                <label class="form-label fw-bold">Description</label>
+                                <label class="form-label fw-bold">{{ __('messages.description') }}</label>
                                 <textarea name="description" class="form-control"
                                     rows="3">{{ old('description', $income->description) }}</textarea>
                             </div>
 
                             <div class="col-12">
-                                <label class="form-label fw-bold">Attach Invoice (PDF/Img)</label>
+                                <label class="form-label fw-bold">{{ __('messages.attach_invoice') }}</label>
                                 <input type="file" name="invoice_file" class="form-control">
                                 <small class="text-muted d-block mt-2">Upload a new file only if you want to replace the
                                     current attachment.</small>
@@ -95,9 +95,11 @@
                         </div>
 
                         <div class="d-flex justify-content-end gap-2 mt-4">
-                            <a href="{{ route('income.index') }}" class="btn btn-light border">Cancel</a>
+                            <a href="{{ route('income.index') }}" class="btn btn-light border">
+                                {{ __('messages.cancel') }}
+                            </a>
                             <button type="submit" class="btn btn-primary fw-bold px-4">
-                                <i class="fa-solid fa-save me-2"></i> Update Income
+                                <i class="fa-solid fa-save me-2"></i> {{ __('messages.update_income') }}
                             </button>
                         </div>
 

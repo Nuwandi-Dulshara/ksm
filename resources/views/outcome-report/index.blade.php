@@ -118,11 +118,11 @@
         {{-- Header row: title LEFT | button RIGHT --}}
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h5 class="fw-bold mb-0">
-                <i class="fa-solid fa-filter me-2 text-primary"></i> Report Filters
+                <i class="fa-solid fa-filter me-2 text-primary"></i> {{ __('messages.report_filters') }}
             </h5>
             <button type="submit" form="filterForm" class="btn btn-dark fw-bold"
                 onclick="document.getElementById('printInput').value=1;">
-                <i class="fa-solid fa-print me-2"></i> Generate & Print
+                <i class="fa-solid fa-print me-2"></i> {{ __('messages.generate_and_print') }}
             </button>
         </div>
 
@@ -130,7 +130,7 @@
         <form id="filterForm" class="row g-3 align-items-end" method="GET" action="{{ route('outcome-report.index') }}">
 
             <div class="col-md-3">
-                <label class="form-label small fw-bold text-muted">Category</label>
+                <label class="form-label small fw-bold text-muted">{{ __('messages.category') }}</label>
                 <select class="form-select" id="categoryFilter" name="category">
                     <option value="all" {{ (isset($categoryFilter) && $categoryFilter === 'all') ? 'selected' : '' }}>
                         All Categories
@@ -159,7 +159,7 @@
             <div class="col-md-3">
                 <button type="submit" class="btn btn-secondary w-50 fw-bold"
                     onclick="document.getElementById('printInput').value=0;">
-                    <i class="fa-solid fa-filter me-2"></i> Filter
+                    <i class="fa-solid fa-filter me-2"></i> {{ __('messages.filter') }}
                 </button>
             </div>
 
@@ -172,9 +172,9 @@
 
     <div class="text-center mb-5 border-bottom pb-3">
         <h2 class="fw-bold text-uppercase mb-1">My Company Ltd.</h2>
-        <h4 class="text-muted fw-light">Monthly Outcome Report</h4>
+        <h4 class="text-muted fw-light">{{ __('messages.monthly_outcome_report') }}</h4>
         <div class="d-flex justify-content-center gap-3 mt-2 text-muted small">
-            <span><strong>Period:</strong> {{ 
+            <span><strong>{{ __('messages.period') }}:</strong> {{ 
                         \Carbon\Carbon::parse($start ?? now()->startOfMonth())->format('M d, Y')
                         }} - {{ \Carbon\Carbon::parse($end ?? now()->endOfMonth())->format('M d, Y') }}</span>
             <span>|</span>
@@ -193,10 +193,10 @@
             <thead>
                 <tr>
                     <th style="width: 50px;">#</th>
-                    <th style="width: 100px;">Date</th>
-                    <th>Description / Note</th>
-                    <th>Paid To</th>
-                    <th class="text-end" style="width: 120px;">Amount</th>
+                    <th style="width: 100px;">{{ __('messages.date') }}</th>
+                    <th>{{ __('messages.description') }} / Note</th>
+                    <th>{{ __('messages.paid_to') }}</th>
+                    <th class="text-end" style="width: 120px;">{{ __('messages.amount') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -211,7 +211,7 @@
                 @endforeach
 
                 <tr class="subtotal-row">
-                    <td colspan="4" class="text-end">Subtotal ({{ $cat['name'] }}):</td>
+                    <td colspan="4" class="text-end">{{ __('messages.subtotal') }} ({{ $cat['name'] }}):</td>
                     <td class="text-end text-danger">${{ number_format($cat['subtotal'], 2) }}</td>
                 </tr>
             </tbody>
@@ -223,19 +223,19 @@
     @endif
 
     <div class="grand-total-box">
-        <div class="text-muted text-uppercase small">Total Outcome (All Categories)</div>
+        <div class="text-muted text-uppercase small">{{ __('messages.total_outcome') }} (All Categories)</div>
         <div class="display-6 fw-bold text-danger">${{ number_format($grandTotal ?? 0, 2) }}</div>
     </div>
 
     <div class="row mt-5 pt-5 text-center">
         <div class="col-4">
-            <div class="border-top border-dark pt-2 mx-4 small fw-bold">Prepared By</div>
+            <div class="border-top border-dark pt-2 mx-4 small fw-bold">{{ __('messages.prepared_by') }}</div>
         </div>
         <div class="col-4">
-            <div class="border-top border-dark pt-2 mx-4 small fw-bold">Accountant</div>
+            <div class="border-top border-dark pt-2 mx-4 small fw-bold">{{ __('messages.accountant') }}</div>
         </div>
         <div class="col-4">
-            <div class="border-top border-dark pt-2 mx-4 small fw-bold">Manager Approval</div>
+            <div class="border-top border-dark pt-2 mx-4 small fw-bold">{{ __('messages.manager_approval') }}</div>
         </div>
     </div>
 

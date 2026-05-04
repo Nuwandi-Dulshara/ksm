@@ -34,7 +34,17 @@ Route::get('/register', function () {
 |--------------------------------------------------------------------------
 */
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', \App\Http\Middleware\SetLocale::class])->group(function () {
+
+    Route::get('/language/{locale}', function (string $locale) {
+        if (! in_array($locale, ['en', 'ar', 'ku'], true)) {
+            abort(404);
+        }
+
+        session(['locale' => $locale]);
+
+        return back();
+    })->name('language.switch');
 
     /*
     |--------------------------------------------------------------------------
