@@ -7,6 +7,7 @@ use App\Models\ExpenseType;
 use App\Models\ExpenseCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class OutcomeController extends Controller
 {
@@ -48,7 +49,8 @@ class OutcomeController extends Controller
             'expense_category_id'  => 'required|exists:expense_categories,id',
             'amount'               => 'required|numeric|min:0',
             'date'                 => 'required|date',
-            'receipt'              => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
+            'invoice_number'       => 'required|unique:outcomes,invoice_number',
+            'receipt'              => 'nullable|file|mimes:jpg,jpeg,png,pdf,webp|max:5120'
         ]);
 
         $receiptPath = null;
@@ -66,8 +68,11 @@ class OutcomeController extends Controller
             'date'                 => $request->date,
             'beneficiary'          => $request->beneficiary,
             'description'          => $request->description,
+            'invoice_number'       => $request->invoice_number,
             'receipt'              => $receiptPath,
-            'status'               => 'pending'
+            'status'               => 'approved',
+            'decided_by'           => Auth::id(),
+            'decided_at'           => now(),
         ]);
 
         return redirect()->route('outcomes.index')
@@ -108,12 +113,17 @@ class OutcomeController extends Controller
             'expense_category_id'  => 'required|exists:expense_categories,id',
             'amount'               => 'required|numeric|min:0',
             'date'                 => 'required|date',
-            'receipt'              => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
+            'invoice_number'       => 'required|unique:outcomes,invoice_number,' . $outcome->id,
+            'receipt'              => 'nullable|file|mimes:jpg,jpeg,png,pdf,webp|max:5120'
         ]);
 
         $receiptPath = $outcome->receipt;
 
         if ($request->hasFile('receipt')) {
+            if ($outcome->receipt && Storage::disk('public')->exists($outcome->receipt)) {
+                Storage::disk('public')->delete($outcome->receipt);
+            }
+
             $receiptPath = $request->file('receipt')
                                    ->store('receipts', 'public');
         }
@@ -125,6 +135,7 @@ class OutcomeController extends Controller
             'date'                 => $request->date,
             'beneficiary'          => $request->beneficiary,
             'description'          => $request->description,
+            'invoice_number'       => $request->invoice_number,
             'receipt'              => $receiptPath,
         ]);
 
@@ -139,6 +150,10 @@ class OutcomeController extends Controller
     */
     public function destroy(Outcome $outcome)
     {
+        if ($outcome->receipt && Storage::disk('public')->exists($outcome->receipt)) {
+            Storage::disk('public')->delete($outcome->receipt);
+        }
+
         $outcome->delete();
 
         return redirect()->route('outcomes.index')

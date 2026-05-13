@@ -30,7 +30,7 @@
                             <div class="col-md-6">
                                 <label class="form-label fw-bold">{{ __('messages.amount_received') }}</label>
                                 <div class="input-group">
-                                    <span class="input-group-text">$</span>
+                                    <span class="input-group-text">IQ</span>
                                     <input type="number" name="amount" class="form-control"
                                         value="{{ old('amount', $income->amount) }}" required>
                                 </div>

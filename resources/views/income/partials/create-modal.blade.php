@@ -20,7 +20,7 @@
                             {{ __('messages.amount_received') }}
                         </label>
                         <div class="input-group">
-                            <span class="input-group-text">$</span>
+                            <span class="input-group-text">IQ</span>
                             <input type="number" name="amount" class="form-control form-control-lg" required>
                         </div>
                     </div>
@@ -44,7 +44,8 @@
                             <label class="form-label small text-muted">
                                 {{ __('messages.invoice_number') }}
                             </label>
-                            <input type="text" class="form-control" value="{{ $nextInvoiceNumber }}" readonly>
+                            <input type="text" name="invoice_number" class="form-control"
+                                value="{{ old('invoice_number') }}" required>
                         </div>
                     </div>
 

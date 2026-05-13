@@ -43,7 +43,7 @@
         <div class="card shadow-sm border-0 card-income p-3">
             <p class="text-muted small mb-1">{{ __('messages.total_income_this_month') }}</p>
             <h3 class="fw-bold text-success mb-0">
-                ${{ number_format($totalThisMonth,2) }}
+                IQ {{ number_format($totalThisMonth,2) }}
             </h3>
         </div>
     </div>
@@ -52,7 +52,7 @@
         <div class="card shadow-sm border-0 p-3">
             <p class="text-muted small mb-1">{{ __('messages.last_month') }}</p>
             <h3 class="fw-bold text-dark mb-0">
-                ${{ number_format($lastMonth,2) }}
+                IQ {{ number_format($lastMonth,2) }}
             </h3>
         </div>
     </div>
@@ -119,7 +119,7 @@
                     <td>{{ $income->description }}</td>
 
                     <td class="text-success fw-bold">
-                        +${{ number_format($income->amount,2) }}
+                        +IQ {{ number_format($income->amount,2) }}
                     </td>
 
                     <td class="text-end pe-4">

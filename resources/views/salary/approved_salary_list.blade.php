@@ -206,11 +206,11 @@
                     <td class="text-center">{{ $index + 1 }}</td>
                     <td>{{ $row['employee_name'] }}</td>
                     <td>{{ $row['position'] }}</td>
-                    <td class="text-end">${{ number_format($row['basic_salary'], 2) }}</td>
-                    <td class="text-end">{{ $row['bonus'] > 0 ? '$' . number_format($row['bonus'], 2) : '-' }}</td>
-                    <td class="text-end">{{ $row['deduction'] > 0 ? '$' . number_format($row['deduction'], 2) : '-' }}
+                    <td class="text-end">IQ {{ number_format($row['basic_salary'], 2) }}</td>
+                    <td class="text-end">{{ $row['bonus'] > 0 ? 'IQ ' . number_format($row['bonus'], 2) : '-' }}</td>
+                    <td class="text-end">{{ $row['deduction'] > 0 ? 'IQ ' . number_format($row['deduction'], 2) : '-' }}
                     </td>
-                    <td class="text-end fw-bold">${{ number_format($row['net_payable'], 2) }}</td>
+                    <td class="text-end fw-bold">IQ {{ number_format($row['net_payable'], 2) }}</td>
                     <td>
                         <div class="sign-box"></div>
                     </td>
@@ -224,12 +224,12 @@
             <tfoot>
                 <tr class="total-row">
                     <td colspan="3" class="text-end pe-3">{{ __('messages.grand_total') }}</td>
-                    <td class="text-end">${{ number_format($totals['basic_salary'], 2) }}</td>
-                    <td class="text-end">{{ $totals['bonus'] > 0 ? '$' . number_format($totals['bonus'], 2) : '-' }}
+                    <td class="text-end">IQ {{ number_format($totals['basic_salary'], 2) }}</td>
+                    <td class="text-end">{{ $totals['bonus'] > 0 ? 'IQ ' . number_format($totals['bonus'], 2) : '-' }}
                     </td>
                     <td class="text-end">
-                        {{ $totals['deduction'] > 0 ? '$' . number_format($totals['deduction'], 2) : '-' }}</td>
-                    <td class="text-end final-total">${{ number_format($totals['net_payable'], 2) }}</td>
+                        {{ $totals['deduction'] > 0 ? 'IQ ' . number_format($totals['deduction'], 2) : '-' }}</td>
+                    <td class="text-end final-total">IQ {{ number_format($totals['net_payable'], 2) }}</td>
                     <td></td>
                 </tr>
             </tfoot>
