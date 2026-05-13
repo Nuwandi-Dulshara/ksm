@@ -57,7 +57,7 @@
             <div class="card card-metric p-3">
                 <p class="text-muted mb-1">{{ __('messages.total_income') }}</p>
                 <h4 class="fw-bold text-success">
-                    ${{ number_format($totalIncome,2) }}
+                    IQ {{ number_format($totalIncome,2) }}
                 </h4>
             </div>
         </div>
@@ -66,7 +66,7 @@
             <div class="card card-metric p-3">
                 <p class="text-muted mb-1">{{ __('messages.total_outcome') }}</p>
                 <h4 class="fw-bold text-danger">
-                    ${{ number_format($totalOutcome,2) }}
+                    IQ {{ number_format($totalOutcome,2) }}
                 </h4>
             </div>
         </div>
@@ -75,7 +75,7 @@
             <div class="card card-metric p-3">
                 <p class="text-muted mb-1">{{ __('messages.net_balance') }}</p>
                 <h4 class="fw-bold text-primary">
-                    ${{ number_format($netBalance,2) }}
+                    IQ {{ number_format($netBalance,2) }}
                 </h4>
             </div>
         </div>
@@ -124,7 +124,7 @@
                         </td>
 
                         <td class="fw-bold text-danger">
-                            -${{ number_format($request->amount,2) }}
+                            -IQ {{ number_format($request->amount,2) }}
                         </td>
 
                         <td class="text-end pe-4">

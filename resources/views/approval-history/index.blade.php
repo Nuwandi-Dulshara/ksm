@@ -157,7 +157,7 @@
                                 {{ optional($item->creator)->name ?? optional($item->creator)->username ?? 'Unknown user' }}
                             </td>
 
-                            <td class="fw-bold">${{ number_format($item->amount, 2) }}</td>
+                            <td class="fw-bold">IQ {{ number_format($item->amount, 2) }}</td>
 
                             <td>
                                 @if($item->status === 'approved')

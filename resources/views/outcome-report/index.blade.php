@@ -206,13 +206,13 @@
                     <td>{{ \Carbon\Carbon::parse($rec['date'])->format('M d, Y') }}</td>
                     <td>{{ $rec['description'] }}</td>
                     <td>{{ $rec['beneficiary'] }}</td>
-                    <td class="text-end">${{ number_format($rec['amount'], 2) }}</td>
+                    <td class="text-end">IQ {{ number_format($rec['amount'], 2) }}</td>
                 </tr>
                 @endforeach
 
                 <tr class="subtotal-row">
                     <td colspan="4" class="text-end">{{ __('messages.subtotal') }} ({{ $cat['name'] }}):</td>
-                    <td class="text-end text-danger">${{ number_format($cat['subtotal'], 2) }}</td>
+                    <td class="text-end text-danger">IQ {{ number_format($cat['subtotal'], 2) }}</td>
                 </tr>
             </tbody>
         </table>
@@ -224,7 +224,7 @@
 
     <div class="grand-total-box">
         <div class="text-muted text-uppercase small">{{ __('messages.total_outcome') }} (All Categories)</div>
-        <div class="display-6 fw-bold text-danger">${{ number_format($grandTotal ?? 0, 2) }}</div>
+        <div class="display-6 fw-bold text-danger">IQ {{ number_format($grandTotal ?? 0, 2) }}</div>
     </div>
 
     <div class="row mt-5 pt-5 text-center">

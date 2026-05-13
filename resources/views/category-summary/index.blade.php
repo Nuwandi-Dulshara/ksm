@@ -148,7 +148,7 @@ body {
                     <div class="small text-muted">{{ $item['subtitle'] }}</div>
                 </td>
                 <td class="text-center">{{ $item['transaction_count'] }}</td>
-                <td class="text-end pe-4 fw-bold">${{ number_format($item['total_amount'], 2) }}</td>
+                <td class="text-end pe-4 fw-bold">IQ {{ number_format($item['total_amount'], 2) }}</td>
             </tr>
             @empty
             <tr>
@@ -163,7 +163,7 @@ body {
                     Expenses:
                 </td>
                 <td class="text-end pe-4 py-3">
-                    <span class="display-6 fw-bold text-danger">${{ number_format($grandTotal, 2) }}</span>
+                    <span class="display-6 fw-bold text-danger">IQ {{ number_format($grandTotal, 2) }}</span>
                 </td>
             </tr>
         </tfoot>

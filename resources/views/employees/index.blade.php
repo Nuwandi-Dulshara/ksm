@@ -102,7 +102,7 @@
                             <td class="py-3">{{ $employee->email ?: 'No email provided' }}</td>
 
                             <td class="py-3 text-end">
-                                ${{ number_format($employee->base_monthly_salary, 2) }}
+                                IQ {{ number_format($employee->base_monthly_salary, 2) }}
                             </td>
 
                             <td class="py-3">

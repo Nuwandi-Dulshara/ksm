@@ -36,7 +36,7 @@ body {
             <div class="card shadow-sm border-0 card-outcome p-3">
                 <p class="text-muted small mb-1">{{ __('messages.total_spent') }}</p>
                 <h3 class="fw-bold text-danger mb-0">
-                    -${{ number_format($outcomes->sum('amount'),2) }}
+                    -IQ {{ number_format($outcomes->sum('amount'),2) }}
                 </h3>
             </div>
         </div>
@@ -44,9 +44,9 @@ body {
         {{-- Pending --}}
         <div class="col-md-4">
             <div class="card shadow-sm border-0 p-3">
-                <p class="text-muted small mb-1">{{ __('messages.pending_approval') }}</p>
+                <p class="text-muted small mb-1">Invoices Added</p>
                 <h3 class="fw-bold text-warning mb-0">
-                    -${{ number_format($outcomes->where('status','pending')->sum('amount'),2) }}
+                    {{ $outcomes->whereNotNull('invoice_number')->count() }}
                 </h3>
             </div>
         </div>
@@ -139,6 +139,7 @@ body {
                     <tr>
                         <th class="ps-4">{{ __('messages.date') }}</th>
                         <th>{{ __('messages.expense_title') }}</th>
+                        <th>{{ __('messages.invoice_number_short') }}</th>
                         <th>{{ __('messages.category') }}</th>
                         <th>{{ __('messages.paid_to') }}</th>
                         <th>{{ __('messages.status') }}</th>
@@ -162,6 +163,10 @@ body {
                         </td>
 
                         <td>
+                            {{ $outcome->invoice_number ?? '-' }}
+                        </td>
+
+                        <td>
                             <span class="badge bg-light text-dark border">
                                 {{ $outcome->expenseCategory->category_name ?? '-' }}
                             </span>
@@ -172,7 +177,7 @@ body {
                         <td>
                             @if($outcome->status == 'approved')
                             <span class="badge bg-success bg-opacity-10 text-success">
-                                Approved
+                                Added
                             </span>
                             @elseif($outcome->status == 'rejected')
                             <span class="badge bg-danger bg-opacity-10 text-danger">
@@ -186,26 +191,20 @@ body {
                         </td>
 
                         <td class="text-danger fw-bold">
-                            -${{ number_format($outcome->amount,2) }}
+                            -IQ {{ number_format($outcome->amount,2) }}
                         </td>
 
                         <td class="text-end pe-4">
 
-                            {{-- Receipt Logic --}}
-                            @if($outcome->status == 'approved' && $outcome->receipt)
+                            {{-- Invoice Logic --}}
+                            @if($outcome->receipt)
                             <a href="{{ asset('storage/'.$outcome->receipt) }}" target="_blank"
-                                class="btn btn-sm btn-light border" title="View Receipt">
-                                <i class="fa-solid fa-print"></i>
+                                class="btn btn-sm btn-light border" title="View Invoice">
+                                <i class="fa-solid fa-file-invoice"></i>
                             </a>
-
-                            @elseif($outcome->status == 'pending')
-                            <button class="btn btn-sm btn-light border" disabled title="Pending Approval">
-                                <i class="fa-solid fa-clock text-muted"></i>
-                            </button>
-
-                            @elseif($outcome->status == 'rejected')
-                            <button class="btn btn-sm btn-light border" disabled title="Rejected">
-                                <i class="fa-solid fa-xmark text-danger"></i>
+                            @else
+                            <button class="btn btn-sm btn-light border" disabled title="No Invoice">
+                                <i class="fa-solid fa-file-circle-xmark text-muted"></i>
                             </button>
                             @endif
 
@@ -233,7 +232,7 @@ body {
 
                     @empty
                     <tr>
-                        <td colspan="7" class="text-center py-4 text-muted">
+                        <td colspan="8" class="text-center py-4 text-muted">
                             No expenses found.
                         </td>
                     </tr>

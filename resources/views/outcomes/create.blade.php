@@ -64,7 +64,7 @@
                 {{ __('messages.new_outcome_request') }}
             </h3>
             <p class="mb-0 text-white-50">
-                Submit an expense for admin approval
+                Record expense invoice details
             </p>
         </div>
 
@@ -77,7 +77,7 @@
                     <div class="col-md-6">
                         <label class="form-label fw-bold">{{ __('messages.amount') }}</label>
                         <div class="input-group">
-                            <span class="input-group-text">$</span>
+                            <span class="input-group-text">IQ</span>
                             <input type="number" name="amount" class="form-control form-control-lg" required>
                         </div>
                     </div>
@@ -89,6 +89,12 @@
                 </div>
 
                 <hr>
+
+                <div class="mb-4">
+                    <label class="form-label fw-bold">{{ __('messages.invoice_number') }}</label>
+                    <input type="text" name="invoice_number" class="form-control form-control-lg"
+                           value="{{ old('invoice_number') }}" required>
+                </div>
 
                 <!-- Expense Type -->
                 <label class="form-label fw-bold mb-2">Expense Type</label>
@@ -135,7 +141,7 @@
 
                 <!-- Upload -->
                 <div class="mb-4">
-                    <label class="form-label fw-bold">Receipt Image</label>
+                    <label class="form-label fw-bold">{{ __('messages.attach_invoice') }}</label>
                     <div class="upload-zone">
                         <p class="text-muted small mb-0">
                             Click to upload

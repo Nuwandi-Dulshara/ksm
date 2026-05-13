@@ -52,15 +52,11 @@ class IncomeController extends Controller
 
         $donators = Donator::all();
 
-        // Auto Generate Next Invoice Number
-        $nextInvoiceNumber = $this->generateInvoiceNumber();
-
         return view('income.index', compact(
             'incomes',
             'totalThisMonth',
             'lastMonth',
-            'donators',
-            'nextInvoiceNumber'
+            'donators'
         ));
     }
 
@@ -74,7 +70,9 @@ class IncomeController extends Controller
         $request->validate([
             'donator_id'    => 'required|exists:donators,id',
             'amount'        => 'required|numeric|min:0',
+            'invoice_number' => 'required|unique:incomes,invoice_number',
             'received_date' => 'required|date',
+            'invoice_file'   => 'nullable|file|mimes:jpg,jpeg,png,pdf,webp|max:5120',
         ]);
 
         $filePath = null;
@@ -87,7 +85,7 @@ class IncomeController extends Controller
         Income::create([
             'donator_id'     => $request->donator_id,
             'amount'         => $request->amount,
-            'invoice_number' => $this->generateInvoiceNumber(),
+            'invoice_number' => $request->invoice_number,
             'received_date'  => $request->received_date,
             'description'    => $request->description,
             'invoice_file'   => $filePath,
@@ -176,26 +174,4 @@ class IncomeController extends Controller
             ->with('success', 'Income deleted successfully.');
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | AUTO INVOICE GENERATOR
-    |--------------------------------------------------------------------------
-    */
-    private function generateInvoiceNumber()
-    {
-        $year = now()->year;
-
-        $lastInvoice = Income::whereYear('created_at', $year)
-            ->orderBy('id', 'desc')
-            ->first();
-
-        if (!$lastInvoice) {
-            $number = 1;
-        } else {
-            $lastNumber = (int) substr($lastInvoice->invoice_number, -3);
-            $number = $lastNumber + 1;
-        }
-
-        return 'INV-' . $year . '-' . str_pad($number, 3, '0', STR_PAD_LEFT);
-    }
 }

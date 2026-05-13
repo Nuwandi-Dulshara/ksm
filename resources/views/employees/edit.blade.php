@@ -88,7 +88,7 @@
                             <label class="form-label fw-bold text-success">Base Monthly
                                 {{ __('messages.salary') }}</label>
                             <div class="input-group">
-                                <span class="input-group-text">$</span>
+                                <span class="input-group-text">IQ</span>
                                 <input type="number" name="base_monthly_salary" class="form-control fw-bold"
                                     placeholder="0.00" step="0.01" min="0"
                                     value="{{ old('base_monthly_salary', $employee->base_monthly_salary) }}" required>

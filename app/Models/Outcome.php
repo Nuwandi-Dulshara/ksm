@@ -15,6 +15,7 @@ class Outcome extends Model
         'date',
         'beneficiary',
         'description',
+        'invoice_number',
         'receipt',
         'status',
         'decided_by',

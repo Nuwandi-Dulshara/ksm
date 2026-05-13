@@ -138,7 +138,7 @@ body {
                             <tr>
                                 <td>1</td>
                                 <td><strong>{{ $income->description ?? 'Income Payment' }}</strong></td>
-                                <td class="text-end fw-bold">${{ number_format($income->amount, 2) }}</td>
+                                <td class="text-end fw-bold">IQ {{ number_format($income->amount, 2) }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -156,7 +156,7 @@ body {
                         <div class="total-box">
                             <div class="d-flex justify-content-between">
                                 <strong class="fs-5">{{ __('messages.grand_total') }}</strong>
-                                <strong class="fs-4 text-success">${{ number_format($income->amount, 2) }}</strong>
+                                <strong class="fs-4 text-success">IQ {{ number_format($income->amount, 2) }}</strong>
                             </div>
                         </div>
                     </div>
@@ -404,7 +404,7 @@ function printInvoice() {
             <tr>
                 <td>1</td>
                 <td><strong>${data.description}</strong></td>
-                <td class="text-right">$${data.amount}</td>
+                <td class="text-right">IQ ${data.amount}</td>
             </tr>
         </tbody>
     </table>
@@ -420,7 +420,7 @@ function printInvoice() {
         <div class="inv-bottom-right">
             <div class="total-box">
                 <span class="total-label">${data.grandTotalLabel}</span>
-                <span class="total-amount">$${data.amount}</span>
+                <span class="total-amount">IQ ${data.amount}</span>
             </div>
         </div>
     </div>

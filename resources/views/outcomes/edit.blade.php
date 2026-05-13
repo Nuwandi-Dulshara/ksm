@@ -88,7 +88,7 @@ body {
                     <div class="col-md-6">
                         <label class="form-label fw-bold">{{ __('messages.amount') }}</label>
                         <div class="input-group">
-                            <span class="input-group-text">$</span>
+                            <span class="input-group-text">IQ</span>
                             <input type="number" name="amount" class="form-control form-control-lg"
                                 value="{{ old('amount',$outcome->amount) }}" required>
                         </div>
@@ -103,6 +103,12 @@ body {
                 </div>
 
                 <hr>
+
+                <div class="mb-4">
+                    <label class="form-label fw-bold">{{ __('messages.invoice_number') }}</label>
+                    <input type="text" name="invoice_number" class="form-control form-control-lg"
+                        value="{{ old('invoice_number',$outcome->invoice_number) }}" required>
+                </div>
 
                 <!-- Expense Type -->
                 <label class="form-label fw-bold mb-2">Expense Type</label>
@@ -180,9 +186,15 @@ body {
 
                 <div class="existing-receipt mb-3">
 
-                    <label class="form-label fw-bold">Current Receipt</label><br>
+                    <label class="form-label fw-bold">Current Invoice</label><br>
 
+                    @if(\Illuminate\Support\Str::endsWith(strtolower($outcome->receipt), '.pdf'))
+                    <a href="{{ asset('storage/'.$outcome->receipt) }}" target="_blank" class="btn btn-sm btn-light border">
+                        <i class="fa-solid fa-file-pdf me-1"></i> View PDF
+                    </a>
+                    @else
                     <img src="{{ asset('storage/'.$outcome->receipt) }}">
+                    @endif
 
                 </div>
 
@@ -192,7 +204,7 @@ body {
 
                 <div class="mb-4">
 
-                    <label class="form-label fw-bold">Replace Receipt</label>
+                    <label class="form-label fw-bold">Replace Invoice</label>
 
                     <div class="upload-zone">
 
