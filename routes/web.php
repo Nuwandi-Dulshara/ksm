@@ -10,6 +10,7 @@ use App\Http\Controllers\OutcomeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\FreelancerController;
 use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\ApprovalHistoryController;
 use App\Http\Controllers\CategorySummaryController;
@@ -121,8 +122,8 @@ Route::middleware(['auth', \App\Http\Middleware\SetLocale::class])->group(functi
     |--------------------------------------------------------------------------
     */
 
-    Route::view('/freelancers', 'people-list')
-        ->name('freelancers');
+    Route::resource('freelancers', FreelancerController::class)
+        ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
 
     Route::view('/social-media', 'social-media')
         ->name('social.media');

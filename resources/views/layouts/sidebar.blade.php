@@ -72,12 +72,12 @@
             <i class="fa-solid fa-check-double me-2"></i> Approve {{ __('messages.salary') }} List
         </a>
 
-        {{--this is not working
-        <a href="{{ route('freelancers') }}"
-        class="nav-link text-white {{ request()->routeIs('freelancers') ? 'active' : '' }}">
-        <i class="fa-solid fa-laptop-code me-2"></i> Freelancers
+
+        <a href="{{ route('freelancers.index') }}"
+            class="nav-link text-white {{ request()->routeIs('freelancers.*') ? 'active' : '' }}">
+            <i class="fa-solid fa-laptop-code me-2"></i> Freelancers
         </a>
-        --}}
+
 
         {{-- -this is not working 
         <a href="{{ route('social.media') }}"
