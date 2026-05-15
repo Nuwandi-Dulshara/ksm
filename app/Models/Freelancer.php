@@ -22,4 +22,9 @@ class Freelancer extends Model
         'portfolio_url',
         'contract_path',
     ];
+
+    public function categoryDefinition()
+    {
+        return $this->belongsTo(FreelanceCategory::class, 'category', 'slug');
+    }
 }

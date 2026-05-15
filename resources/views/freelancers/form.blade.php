@@ -18,16 +18,21 @@
                     <option disabled value="" {{ old('category', $freelancer?->category) ? '' : 'selected' }}>
                         Select Category...
                     </option>
-                    <option value="xakveen" {{ old('category', $freelancer?->category) === 'xakveen' ? 'selected' : '' }}>
-                        Xakveen
+                    @foreach($categories as $category)
+                    <option value="{{ $category->slug }}"
+                        {{ old('category', $freelancer?->category) === $category->slug ? 'selected' : '' }}>
+                        {{ $category->name }}
                     </option>
-                    <option value="pages" {{ old('category', $freelancer?->category) === 'pages' ? 'selected' : '' }}>
-                        Pages
-                    </option>
+                    @endforeach
                 </select>
                 @error('category')
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
+                @if($categories->isEmpty())
+                <small class="text-danger">
+                    Please create an active freelance category before registering freelancers.
+                </small>
+                @endif
             </div>
 
             <div class="col-md-6">
@@ -65,25 +70,30 @@
             <div class="col-md-6">
                 <label class="form-label fw-bold text-success">Billing Rate</label>
                 <div class="input-group">
-                    <span class="input-group-text">$</span>
+                    <span class="input-group-text">IQ</span>
                     <input type="number" name="billing_rate"
                         class="form-control fw-bold @error('billing_rate') is-invalid @enderror" placeholder="0.00"
                         step="0.01" min="0" value="{{ old('billing_rate', $freelancer?->billing_rate) }}" required>
                     <select name="rate_type" class="form-select bg-light @error('rate_type') is-invalid @enderror"
                         style="max-width: 160px;">
-                        <option value="hourly" {{ old('rate_type', $freelancer?->rate_type) === 'hourly' ? 'selected' : '' }}>
+                        <option value="hourly"
+                            {{ old('rate_type', $freelancer?->rate_type) === 'hourly' ? 'selected' : '' }}>
                             Per Hour
                         </option>
-                        <option value="project" {{ old('rate_type', $freelancer?->rate_type ?? 'project') === 'project' ? 'selected' : '' }}>
+                        <option value="project"
+                            {{ old('rate_type', $freelancer?->rate_type ?? 'project') === 'project' ? 'selected' : '' }}>
                             Per Project
                         </option>
-                        <option value="monthly" {{ old('rate_type', $freelancer?->rate_type) === 'monthly' ? 'selected' : '' }}>
+                        <option value="monthly"
+                            {{ old('rate_type', $freelancer?->rate_type) === 'monthly' ? 'selected' : '' }}>
                             Monthly
                         </option>
-                        <option value="article" {{ old('rate_type', $freelancer?->rate_type) === 'article' ? 'selected' : '' }}>
+                        <option value="article"
+                            {{ old('rate_type', $freelancer?->rate_type) === 'article' ? 'selected' : '' }}>
                             Per Article
                         </option>
-                        <option value="post" {{ old('rate_type', $freelancer?->rate_type) === 'post' ? 'selected' : '' }}>
+                        <option value="post"
+                            {{ old('rate_type', $freelancer?->rate_type) === 'post' ? 'selected' : '' }}>
                             Per Post
                         </option>
                     </select>
@@ -99,7 +109,8 @@
             <div class="col-md-6">
                 <label class="form-label text-muted small">Current Status</label>
                 <select name="status" class="form-select @error('status') is-invalid @enderror">
-                    <option value="active" {{ old('status', $freelancer?->status ?? 'active') === 'active' ? 'selected' : '' }}>
+                    <option value="active"
+                        {{ old('status', $freelancer?->status ?? 'active') === 'active' ? 'selected' : '' }}>
                         Active
                     </option>
                     <option value="busy" {{ old('status', $freelancer?->status) === 'busy' ? 'selected' : '' }}>
@@ -120,7 +131,8 @@
             <div class="col-md-12">
                 <label class="form-label text-muted small">Preferred Payment Method & Details</label>
                 <textarea name="payment_details" class="form-control @error('payment_details') is-invalid @enderror"
-                    rows="2" placeholder="e.g. FastPay: 0750..., or ZainCash">{{ old('payment_details', $freelancer?->payment_details) }}</textarea>
+                    rows="2"
+                    placeholder="e.g. FastPay: 0750..., or ZainCash">{{ old('payment_details', $freelancer?->payment_details) }}</textarea>
                 @error('payment_details')
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror

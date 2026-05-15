@@ -78,6 +78,11 @@
             <i class="fa-solid fa-laptop-code me-2"></i> Freelancers
         </a>
 
+        <a href="{{ route('freelance-categories.index') }}"
+            class="nav-link text-white {{ request()->routeIs('freelance-categories.*') ? 'active' : '' }}">
+            <i class="fa-solid fa-folder-tree me-2"></i> Freelance Categories
+        </a>
+
 
         {{-- -this is not working 
         <a href="{{ route('social.media') }}"

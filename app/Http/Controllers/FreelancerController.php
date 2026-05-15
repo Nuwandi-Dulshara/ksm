@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Freelancer;
+use App\Models\FreelanceCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class FreelancerController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Freelancer::query()->latest();
+        $query = Freelancer::with('categoryDefinition')->latest();
 
         if ($request->filled('search')) {
             $search = $request->string('search');
@@ -31,21 +33,26 @@ class FreelancerController extends Controller
         }
 
         $freelancers = $query->get();
+        $categories = FreelanceCategory::orderBy('name')->get();
         $totalFreelancers = Freelancer::count();
-        $xakveenCount = Freelancer::where('category', 'xakveen')->where('status', '!=', 'inactive')->count();
-        $pagesCount = Freelancer::where('category', 'pages')->where('status', '!=', 'inactive')->count();
+        $categoryCounts = Freelancer::selectRaw('category, count(*) as total')
+            ->where('status', '!=', 'inactive')
+            ->groupBy('category')
+            ->pluck('total', 'category');
 
         return view('freelancers.index', compact(
             'freelancers',
+            'categories',
             'totalFreelancers',
-            'xakveenCount',
-            'pagesCount'
+            'categoryCounts'
         ));
     }
 
     public function create()
     {
-        return view('freelancers.create');
+        $categories = FreelanceCategory::where('status', 'active')->orderBy('name')->get();
+
+        return view('freelancers.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -67,7 +74,12 @@ class FreelancerController extends Controller
 
     public function edit(Freelancer $freelancer)
     {
-        return view('freelancers.edit', compact('freelancer'));
+        $categories = FreelanceCategory::where('status', 'active')
+            ->orWhere('slug', $freelancer->category)
+            ->orderBy('name')
+            ->get();
+
+        return view('freelancers.edit', compact('freelancer', 'categories'));
     }
 
     public function update(Request $request, Freelancer $freelancer)
@@ -106,9 +118,16 @@ class FreelancerController extends Controller
 
     private function validateFreelancer(Request $request, ?Freelancer $freelancer = null): array
     {
+        $allowedCategories = FreelanceCategory::where('status', 'active')
+            ->when($freelancer?->category, function ($query, string $currentCategory) {
+                $query->orWhere('slug', $currentCategory);
+            })
+            ->pluck('slug')
+            ->all();
+
         return $request->validate([
             'full_name' => ['required', 'string', 'max:255'],
-            'category' => ['required', 'in:xakveen,pages'],
+            'category' => ['required', Rule::in($allowedCategories)],
             'service_skill' => ['nullable', 'string', 'max:255'],
             'phone_number' => ['nullable', 'string', 'max:50'],
             'email' => ['nullable', 'email', 'max:255', 'unique:freelancers,email,' . ($freelancer?->id ?? 'NULL')],

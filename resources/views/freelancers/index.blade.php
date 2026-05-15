@@ -34,12 +34,17 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h2 class="fw-bold mb-0">Freelancer Directory</h2>
-            <p class="text-muted mb-0">Manage contractors for Xakveen and Pages.</p>
+            <p class="text-muted mb-0">Manage contractors by freelance category.</p>
         </div>
 
-        <a href="{{ route('freelancers.create') }}" class="btn btn-primary">
-            <i class="fa-solid fa-plus me-2"></i> Add New Freelancer
-        </a>
+        <div class="d-flex gap-2">
+            <a href="{{ route('freelance-categories.index') }}" class="btn btn-light border fw-bold">
+                <i class="fa-solid fa-folder-tree me-2"></i> Categories
+            </a>
+            <a href="{{ route('freelancers.create') }}" class="btn btn-primary">
+                <i class="fa-solid fa-plus me-2"></i> Add New Freelancer
+            </a>
+        </div>
     </div>
 
     <div class="row g-3 mb-4">
@@ -58,33 +63,21 @@
             </div>
         </div>
 
+        @foreach($categories->take(2) as $category)
         <div class="col-lg-4 col-md-6">
             <div class="card border-0 shadow-sm category-card">
                 <div class="card-body p-4">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h5 class="fw-bold mb-1">Xakveen</h5>
-                            <p class="text-muted mb-0">Writers, editors, and content creators</p>
+                            <h5 class="fw-bold mb-1">{{ $category->name }}</h5>
+                            <p class="text-muted mb-0">{{ $category->description ?: 'Freelance category' }}</p>
                         </div>
-                        <span class="badge bg-primary fs-6">{{ $xakveenCount }} Active</span>
+                        <span class="badge bg-primary fs-6">{{ $categoryCounts[$category->slug] ?? 0 }} Active</span>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="col-lg-4 col-md-6">
-            <div class="card border-0 shadow-sm category-card">
-                <div class="card-body p-4">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h5 class="fw-bold mb-1">Pages</h5>
-                            <p class="text-muted mb-0">Admins, moderators, and designers</p>
-                        </div>
-                        <span class="badge bg-info text-dark fs-6">{{ $pagesCount }} Active</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @endforeach
     </div>
 
     @if(session('success'))
@@ -103,8 +96,11 @@
                 <div class="col-md-3">
                     <select name="category" class="form-select">
                         <option value="">All Categories</option>
-                        <option value="xakveen" {{ request('category') === 'xakveen' ? 'selected' : '' }}>Xakveen</option>
-                        <option value="pages" {{ request('category') === 'pages' ? 'selected' : '' }}>Pages</option>
+                        @foreach($categories as $category)
+                        <option value="{{ $category->slug }}" {{ request('category') === $category->slug ? 'selected' : '' }}>
+                            {{ $category->name }}
+                        </option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="col-md-3">
@@ -151,11 +147,9 @@
                             <small class="text-muted">{{ $freelancer->email ?: 'No email provided' }}</small>
                         </td>
                         <td>
-                            @if($freelancer->category === 'xakveen')
-                            <span class="badge bg-primary">Xakveen</span>
-                            @else
-                            <span class="badge bg-info text-dark">Pages</span>
-                            @endif
+                            <span class="badge bg-primary">
+                                {{ $freelancer->categoryDefinition?->name ?? ucfirst(str_replace('-', ' ', $freelancer->category)) }}
+                            </span>
                         </td>
                         <td>{{ $freelancer->service_skill ?: 'Not specified' }}</td>
                         <td>
