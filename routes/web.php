@@ -15,6 +15,7 @@ use App\Http\Controllers\FreelancerController;
 use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\ApprovalHistoryController;
 use App\Http\Controllers\CategorySummaryController;
+use App\Http\Controllers\MoneyIssuanceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,6 +74,11 @@ Route::middleware(['auth', \App\Http\Middleware\SetLocale::class])->group(functi
 
     Route::resource('outcomes', OutcomeController::class);
 
+    // ✅ Print Outcome Invoice
+    Route::get('/outcomes/{outcome}/print',
+        [OutcomeController::class, 'print'])
+        ->name('outcomes.print');
+
     // ✅ AJAX - Get Categories by Expense Type
     Route::get('/get-categories/{expenseType}',
         [OutcomeController::class, 'getCategories'])
@@ -108,6 +114,13 @@ Route::middleware(['auth', \App\Http\Middleware\SetLocale::class])->group(functi
     Route::resource('employees', EmployeeController::class)
         ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
 
+    // Employee Print & Export
+    Route::get('/employees/print', [EmployeeController::class, 'print'])
+        ->name('employees.print');
+    
+    Route::get('/employees/export', [EmployeeController::class, 'export'])
+        ->name('employees.export');
+
     Route::get('/monthly-salary', [SalaryController::class, 'monthlyList'])
         ->name('monthly.salary');
 
@@ -128,6 +141,29 @@ Route::middleware(['auth', \App\Http\Middleware\SetLocale::class])->group(functi
 
     Route::resource('freelance-categories', FreelanceCategoryController::class)
         ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+
+    /*
+    |--------------------------------------------------------------------------
+    | Money Issuance
+    |--------------------------------------------------------------------------
+    */
+
+    Route::resource('money-issuances', MoneyIssuanceController::class);
+    
+    Route::post('/money-issuances/{moneyIssuance}/approve', [MoneyIssuanceController::class, 'approve'])
+        ->name('money-issuances.approve');
+    
+    Route::post('/money-issuances/{moneyIssuance}/reject', [MoneyIssuanceController::class, 'reject'])
+        ->name('money-issuances.reject');
+    
+    Route::get('/money-issuances-report', [MoneyIssuanceController::class, 'report'])
+        ->name('money-issuances.report');
+    
+    Route::get('/money-issuances/{moneyIssuance}/report', [MoneyIssuanceController::class, 'showReport'])
+        ->name('money-issuances.show-report');
+    
+    Route::get('/money-issuances/{moneyIssuance}/print-report', [MoneyIssuanceController::class, 'printIndividualReport'])
+        ->name('money-issuances.print-individual-report');
 
     Route::view('/social-media', 'social-media')
         ->name('social.media');

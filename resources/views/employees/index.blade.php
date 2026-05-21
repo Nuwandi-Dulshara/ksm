@@ -18,6 +18,81 @@
 .employee-table .employee-notes {
     white-space: normal;
 }
+
+.filter-section {
+    margin-bottom: 20px;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.filter-header h5 {
+    margin: 0;
+    font-weight: 600;
+    color: #333;
+}
+
+.filter-controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.filter-select {
+    min-width: 200px;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.action-buttons button,
+.action-buttons a {
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-print {
+    background-color: #1976d2;
+    color: white;
+}
+
+.btn-print:hover {
+    background-color: #1565c0;
+}
+
+.btn-export {
+    background-color: #388e3c;
+    color: white;
+}
+
+.btn-export:hover {
+    background-color: #2e7d32;
+}
+
+@media print {
+    .filter-section,
+    .action-buttons {
+        display: none;
+    }
+}
 </style>
 @endsection
 
@@ -45,7 +120,7 @@
                         <h2 class="fw-bold mb-0">
                             {{ $totalEmployees }}
                         </h2>
-                        <small class="text-muted">Registered employees</small>
+                        <small class="text-muted">{{ $jobTitle ? "in '$jobTitle'" : 'All employees' }}</small>
                     </div>
 
                     <div class="metric-icon bg-primary-gradient">
@@ -57,10 +132,49 @@
     </div>
 
     @if(session('success'))
-    <div class="alert alert-success">
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
         {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
     @endif
+
+    {{-- Filter Section --}}
+    <div class="filter-section">
+        <div class="filter-header">
+            <h5><i class="fa-solid fa-filter me-2"></i> Filter by Job Title</h5>
+        </div>
+
+        <form method="GET" class="filter-controls">
+            <select name="job_title" class="form-select filter-select">
+                <option value="">All Job Titles</option>
+                @foreach($jobTitles as $title)
+                    <option value="{{ $title }}" {{ $jobTitle === $title ? 'selected' : '' }}>
+                        {{ $title }}
+                    </option>
+                @endforeach
+            </select>
+
+            <button type="submit" class="btn btn-outline-primary">
+                <i class="fa-solid fa-magnifying-glass me-2"></i> Filter
+            </button>
+
+            @if($jobTitle)
+            <a href="{{ route('employees.index') }}" class="btn btn-outline-secondary">
+                <i class="fa-solid fa-x me-2"></i> Clear Filter
+            </a>
+            @endif
+        </form>
+    </div>
+
+    {{-- Action Buttons --}}
+    <div class="action-buttons">
+        <button class="btn-print" onclick="window.print()">
+            <i class="fa-solid fa-print me-2"></i> Print
+        </button>
+        <a href="{{ route('employees.export', request()->query()) }}" class="btn-export">
+            <i class="fa-solid fa-download me-2"></i> Export to CSV
+        </a>
+    </div>
 
     <div class="card border-0 shadow-sm">
         <div class="card-body p-0">
@@ -135,6 +249,12 @@
                             </td>
 
                             <td class="py-3 text-center pe-4">
+                                <a href="{{ route('employees.print', ['id' => $employee->id]) }}"
+                                    class="btn btn-sm btn-outline-info me-1" target="_blank"
+                                    title="Print">
+                                    <i class="fa-solid fa-print"></i>
+                                </a>
+
                                 <a href="{{ route('employees.edit', $employee) }}"
                                     class="btn btn-sm btn-outline-primary me-1">
                                     <i class="fa-solid fa-pen-to-square"></i>
