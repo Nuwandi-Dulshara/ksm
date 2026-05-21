@@ -49,7 +49,6 @@ class OutcomeController extends Controller
             'expense_category_id'  => 'required|exists:expense_categories,id',
             'amount'               => 'required|numeric|min:0',
             'date'                 => 'required|date',
-            'invoice_number'       => 'required|unique:outcomes,invoice_number',
             'receipt'              => 'nullable|file|mimes:jpg,jpeg,png,pdf,webp|max:5120'
         ]);
 
@@ -68,7 +67,6 @@ class OutcomeController extends Controller
             'date'                 => $request->date,
             'beneficiary'          => $request->beneficiary,
             'description'          => $request->description,
-            'invoice_number'       => $request->invoice_number,
             'receipt'              => $receiptPath,
             'status'               => 'approved',
             'decided_by'           => Auth::id(),
@@ -202,6 +200,18 @@ class OutcomeController extends Controller
 
         return redirect()->back()
                          ->with('success','Request Rejected');
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Print Invoice
+    |--------------------------------------------------------------------------
+    */
+    public function print(Outcome $outcome)
+    {
+        $outcome->load(['expenseType', 'expenseCategory', 'creator', 'decisionBy']);
+
+        return view('outcomes.print', compact('outcome'));
     }
 
     /*

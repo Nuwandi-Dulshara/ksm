@@ -90,10 +90,9 @@
 
                 <hr>
 
-                <div class="mb-4">
-                    <label class="form-label fw-bold">{{ __('messages.invoice_number') }}</label>
-                    <input type="text" name="invoice_number" class="form-control form-control-lg"
-                           value="{{ old('invoice_number') }}" required>
+                <div class="alert alert-info mb-4">
+                    <i class="fa-solid fa-circle-info me-2"></i>
+                    <strong>Invoice ID</strong> will be automatically generated (e.g., INV-20260521-00001)
                 </div>
 
                 <!-- Expense Type -->

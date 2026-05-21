@@ -39,6 +39,16 @@
             <i class="fa-solid fa-chart-line me-2"></i> Outcome Report
         </a>
 
+        <a href="{{ route('money-issuances.index') }}"
+            class="nav-link text-white {{ request()->routeIs('money-issuances.*') ? 'active' : '' }}">
+            <i class="fa-solid fa-cash me-2"></i> Money Issuances
+        </a>
+
+        <a href="{{ route('money-issuances.report') }}"
+            class="nav-link text-white {{ request()->routeIs('money-issuances.report') ? 'active' : '' }}">
+            <i class="fa-solid fa-file-invoice-dollar me-2"></i> Issuance Reports
+        </a>
+
         <a href="{{ route('approval.history') }}"
             class="nav-link text-white {{ request()->routeIs('approval.history') ? 'active' : '' }}">
             <i class="fa-solid fa-clock-rotate-left me-2"></i> {{ __('messages.approval_history') }}

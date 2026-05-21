@@ -196,6 +196,12 @@ body {
 
                         <td class="text-end pe-4">
 
+                            {{-- Print Invoice --}}
+                            <a href="{{ route('outcomes.print', $outcome->id) }}" target="_blank"
+                                class="btn btn-sm btn-light border" title="Print Invoice">
+                                <i class="fa-solid fa-print"></i>
+                            </a>
+
                             {{-- Invoice Logic --}}
                             @if($outcome->receipt)
                             <a href="{{ asset('storage/'.$outcome->receipt) }}" target="_blank"
