@@ -1,7 +1,7 @@
-<div class="sidebar d-flex flex-column p-3">
+<div class="sidebar d-flex flex-column p-3" data-dir="{{ app()->getLocale() === 'ar' || app()->getLocale() === 'ku' ? 'rtl' : 'ltr' }}">
 
-    <h3 class="mb-4 ps-2 fw-bold">
-        <i class="fa-solid fa-wallet me-2"></i> AccoSys
+    <h3 class="mb-4 ps-2 fw-bold icon-start">
+        <i class="fa-solid fa-wallet"></i> AccoSys
     </h3>
 
     <nav class="nav flex-column">
@@ -9,54 +9,54 @@
         <!-- DASHBOARD -->
         <a href="{{ route('dashboard') }}"
             class="nav-link text-white {{ request()->routeIs('dashboard') ? 'active' : '' }}">
-            <i class="fa-solid fa-house me-2"></i> {{ __('messages.dashboard') }}
+            <i class="fa-solid fa-house"></i> <span>{{ __('messages.dashboard') }}</span>
         </a>
 
         <!-- INCOME -->
         <a href="{{ route('income.index') }}"
             class="nav-link text-white {{ request()->routeIs('income') ? 'active' : '' }}">
-            <i class="fa-solid fa-money-bill-trend-up me-2"></i> {{ __('messages.incomes') }}
+            <i class="fa-solid fa-money-bill-trend-up"></i> <span>{{ __('messages.incomes') }}</span>
         </a>
 
 
         <a href="{{ route('expense-types.index') }}"
             class="nav-link text-white {{ request()->routeIs('expense-types.index') ? 'active' : '' }}">
-            <i class="fa-solid fa-tags me-2"></i> {{ __('messages.expense_types') }}
+            <i class="fa-solid fa-tags"></i> <span>{{ __('messages.expense_types') }}</span>
         </a>
 
         <a href="{{ route('expense-categories.index') }}"
             class="nav-link text-white {{ request()->routeIs('expense-categories.index') ? 'active' : '' }}">
-            <i class="fa-solid fa-list me-2"></i> {{ __('messages.expense_categories') }}
+            <i class="fa-solid fa-list"></i> <span>{{ __('messages.expense_categories') }}</span>
         </a>
 
         <a href="{{ route('outcomes.index') }}"
             class="nav-link text-white {{ request()->routeIs('outcomes.*') ? 'active' : '' }}">
-            <i class="fa-solid fa-money-bill-transfer me-2"></i> {{ __('messages.outcome_plus') }}
+            <i class="fa-solid fa-money-bill-transfer"></i> <span>{{ __('messages.outcome_plus') }}</span>
         </a>
 
         <a href="{{ route('outcome-report.index') }}"
             class="nav-link text-white {{ request()->routeIs('outcome-report.index') ? 'active' : '' }}">
-            <i class="fa-solid fa-chart-line me-2"></i> Outcome Report
+            <i class="fa-solid fa-chart-line"></i> <span>Outcome Report</span>
         </a>
 
         <a href="{{ route('money-issuances.index') }}"
             class="nav-link text-white {{ request()->routeIs('money-issuances.*') ? 'active' : '' }}">
-            <i class="fa-solid fa-cash me-2"></i> Money Issuances
+            <i class="fa-solid fa-cash"></i> <span>Money Issuances</span>
         </a>
 
         <a href="{{ route('money-issuances.report') }}"
             class="nav-link text-white {{ request()->routeIs('money-issuances.report') ? 'active' : '' }}">
-            <i class="fa-solid fa-file-invoice-dollar me-2"></i> Issuance Reports
+            <i class="fa-solid fa-file-invoice-dollar"></i> <span>Issuance Reports</span>
         </a>
 
         <a href="{{ route('approval.history') }}"
             class="nav-link text-white {{ request()->routeIs('approval.history') ? 'active' : '' }}">
-            <i class="fa-solid fa-clock-rotate-left me-2"></i> {{ __('messages.approval_history') }}
+            <i class="fa-solid fa-clock-rotate-left"></i> <span>{{ __('messages.approval_history') }}</span>
         </a>
 
         <a href="{{ route('category.summary') }}"
             class="nav-link text-white {{ request()->routeIs('category.summary') ? 'active' : '' }}">
-            <i class="fa-solid fa-layer-group me-2"></i> Summary of Outcome
+            <i class="fa-solid fa-layer-group"></i> <span>Summary of Outcome</span>
         </a>
 
         <hr class="text-white-50">

@@ -31,16 +31,11 @@
                         <div class="row g-3 mb-4">
                             <div class="col-md-6">
                                 <label class="form-label fw-bold">Issued To <span class="text-danger">*</span></label>
-                                <select name="issued_to_id" id="issuedToSelect" class="form-select @error('issued_to_id') is-invalid @enderror" required>
-                                    <option value="" disabled>Select or type Recipient...</option>
-                                    @foreach($recipients as $recipient)
-                                        <option value="{{ $recipient->id }}" 
-                                            {{ old('issued_to_id', $moneyIssuance->issued_to_id) == $recipient->id ? 'selected' : '' }}>
-                                            {{ $recipient->name }} ({{ $recipient->email }})
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('issued_to_id')
+                                <input type="text" name="issued_to"
+                                    class="form-control @error('issued_to') is-invalid @enderror"
+                                    placeholder="Type recipient name or email"
+                                    value="{{ old('issued_to', $moneyIssuance->issued_to) }}" required>
+                                @error('issued_to')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>

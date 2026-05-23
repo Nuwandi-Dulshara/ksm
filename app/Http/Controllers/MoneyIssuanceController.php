@@ -74,6 +74,7 @@ class MoneyIssuanceController extends Controller
             'issued_date' => 'required|date|before_or_equal:today',
         ]);
 
+        // Try to find matching user by name or email
         $recipient = User::where('status', 'active')
             ->where(function ($query) use ($validated) {
                 $query->where('name', $validated['issued_to'])
@@ -81,17 +82,11 @@ class MoneyIssuanceController extends Controller
             })
             ->first();
 
-        if (! $recipient) {
-            return back()
-                ->withErrors(['issued_to' => 'Please type an existing active recipient name or email.'])
-                ->withInput();
-        }
-
-        $validated['issued_to_id'] = $recipient->id;
+        // Store issued_to as string and optional issued_to_id if user exists
+        $validated['issued_to_id'] = $recipient?->id;
         $validated['created_by'] = Auth::id();
         $validated['status'] = 'pending';
         $validated['recipient_type'] = 'other'; // Default type
-        unset($validated['issued_to']);
 
         MoneyIssuance::create($validated);
 
@@ -115,13 +110,24 @@ class MoneyIssuanceController extends Controller
         }
 
         $validated = $request->validate([
-            'issued_to_id' => 'required|exists:users,id',
+            'issued_to' => 'required|string|max:255',
             'amount' => 'required|numeric|min:0.01',
             'reason' => 'required|string|max:255',
             'description' => 'nullable|string|max:1000',
             'notes' => 'nullable|string|max:1000',
             'issued_date' => 'required|date|before_or_equal:today',
         ]);
+
+        // Try to find matching user by name or email
+        $recipient = User::where('status', 'active')
+            ->where(function ($query) use ($validated) {
+                $query->where('name', $validated['issued_to'])
+                    ->orWhere('email', $validated['issued_to']);
+            })
+            ->first();
+
+        // Store issued_to as string and optional issued_to_id if user exists
+        $validated['issued_to_id'] = $recipient?->id;
 
         $moneyIssuance->update($validated);
 

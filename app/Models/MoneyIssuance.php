@@ -9,6 +9,7 @@ class MoneyIssuance extends Model
 {
     protected $fillable = [
         'issued_to_id',
+        'issued_to',
         'recipient_type',
         'amount',
         'reason',

@@ -129,4 +129,9 @@ return [
     'permissions' => 'الصلاحيات',
     'created_at' => 'تاريخ الإنشاء',
 
+    // Language Switcher
+    'language' => 'اللغة',
+    'select_language' => 'اختر اللغة',
+    'change_language' => 'تغيير اللغة',
+
 ];

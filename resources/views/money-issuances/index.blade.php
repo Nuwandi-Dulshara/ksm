@@ -135,9 +135,9 @@
                     @forelse($issuances as $issuance)
                     <tr>
                         <td>
-                            <strong>{{ $issuance->issuedTo?->name ?? 'Unknown' }}</strong>
+                            <strong>{{ $issuance->issued_to ?? ($issuance->issuedTo?->name ?? 'Unknown') }}</strong>
                             <br>
-                            <small class="text-muted">{{ $issuance->issuedTo?->email }}</small>
+                            <small class="text-muted">{{ $issuance->issuedTo?->email ?? '' }}</small>
                         </td>
                         <td>{{ $issuance->reason }}</td>
                         <td class="fw-bold">{{ number_format($issuance->amount, 0) }} IQ</td>
@@ -217,7 +217,7 @@
                                 <form action="{{ route('money-issuances.approve', $issuance) }}" method="POST">
                                     @csrf
                                     <div class="modal-body">
-                                        <p><strong>Recipient:</strong> {{ $issuance->issuedTo?->name }}</p>
+                                        <p><strong>Recipient:</strong> {{ $issuance->issued_to ?? ($issuance->issuedTo?->name ?? 'Unknown') }}</p>
                                         <p><strong>Amount:</strong> {{ number_format($issuance->amount, 0) }} IQ</p>
                                         <p><strong>Reason:</strong> {{ $issuance->reason }}</p>
                                         
@@ -248,7 +248,7 @@
                                 <form action="{{ route('money-issuances.reject', $issuance) }}" method="POST">
                                     @csrf
                                     <div class="modal-body">
-                                        <p><strong>Recipient:</strong> {{ $issuance->issuedTo?->name }}</p>
+                                        <p><strong>Recipient:</strong> {{ $issuance->issued_to ?? ($issuance->issuedTo?->name ?? 'Unknown') }}</p>
                                         <p><strong>Amount:</strong> {{ number_format($issuance->amount, 0) }} IQ</p>
                                         <p><strong>Reason:</strong> {{ $issuance->reason }}</p>
                                         
