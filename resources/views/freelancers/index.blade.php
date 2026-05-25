@@ -97,7 +97,8 @@
                     <select name="category" class="form-select">
                         <option value="">All Categories</option>
                         @foreach($categories as $category)
-                        <option value="{{ $category->slug }}" {{ request('category') === $category->slug ? 'selected' : '' }}>
+                        <option value="{{ $category->slug }}"
+                            {{ request('category') === $category->slug ? 'selected' : '' }}>
                             {{ $category->name }}
                         </option>
                         @endforeach
@@ -108,7 +109,8 @@
                         <option value="">Any Status</option>
                         <option value="active" {{ request('status') === 'active' ? 'selected' : '' }}>Active</option>
                         <option value="busy" {{ request('status') === 'busy' ? 'selected' : '' }}>Busy</option>
-                        <option value="inactive" {{ request('status') === 'inactive' ? 'selected' : '' }}>Inactive</option>
+                        <option value="inactive" {{ request('status') === 'inactive' ? 'selected' : '' }}>Inactive
+                        </option>
                     </select>
                 </div>
                 <div class="col-md-2 d-flex gap-2">
@@ -160,9 +162,9 @@
                         <td>
                             @php
                             $statusClass = [
-                                'active' => 'bg-success bg-opacity-10 text-success',
-                                'busy' => 'bg-warning bg-opacity-10 text-dark',
-                                'inactive' => 'bg-secondary bg-opacity-10 text-secondary',
+                            'active' => 'bg-success bg-opacity-10 text-success',
+                            'busy' => 'bg-warning bg-opacity-10 text-dark',
+                            'inactive' => 'bg-secondary bg-opacity-10 text-secondary',
                             ][$freelancer->status] ?? 'bg-secondary';
                             @endphp
                             <span class="badge {{ $statusClass }}">{{ ucfirst($freelancer->status) }}</span>
@@ -178,25 +180,30 @@
                             @endif
                         </td>
                         <td class="text-end pe-4">
-                            <a href="{{ route('outcomes.create') }}"
-                                class="btn btn-sm btn-outline-success fw-bold me-1">Pay</a>
+                            <div class="d-flex gap-2 justify-content-end">
+                                <a href="{{ route('outcomes.create') }}" class="btn btn-sm btn-outline-success"
+                                    title="Pay freelancer">
+                                    <i class="fa-solid fa-money-bill"></i> Pay
+                                </a>
 
-                            <a href="{{ route('freelancers.edit', $freelancer) }}"
-                                class="btn btn-sm btn-outline-primary me-1">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </a>
+                                <a href="{{ route('freelancers.edit', $freelancer) }}"
+                                    class="btn btn-sm btn-outline-primary" title="Edit freelancer">
+                                    <i class="fa-solid fa-pen-to-square"></i> Edit
+                                </a>
 
-                            <form action="{{ route('freelancers.destroy', $freelancer) }}" method="POST"
-                                class="d-inline js-delete-form" data-confirm-title="Delete freelancer?"
-                                data-confirm-text="This freelancer profile will be permanently deleted."
-                                data-confirm-button="Yes, delete">
-                                @csrf
-                                @method('DELETE')
+                                <form action="{{ route('freelancers.destroy', $freelancer) }}" method="POST"
+                                    class="d-inline js-delete-form" data-confirm-title="Delete freelancer?"
+                                    data-confirm-text="This freelancer profile will be permanently deleted."
+                                    data-confirm-button="Yes, delete">
+                                    @csrf
+                                    @method('DELETE')
 
-                                <button type="submit" class="btn btn-sm btn-outline-danger">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-                            </form>
+                                    <button type="submit" class="btn btn-sm btn-outline-danger"
+                                        title="Delete freelancer">
+                                        <i class="fa-solid fa-trash"></i> Delete
+                                    </button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                     @empty

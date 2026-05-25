@@ -1,7 +1,21 @@
 @extends('layouts.app')
 
 @section('styles')
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js@10.2.0/public/assets/styles/choices.min.css">
+    <style>
+        .form-section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .page-title {
+            color: #1e3a8a;
+            font-weight: 700;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -13,7 +27,7 @@
             <p class="text-muted">Modify issuance details (Pending only)</p>
         </div>
         <a href="{{ route('money-issuances.index') }}" class="btn btn-outline-secondary btn-sm">
-            <i class="bi bi-arrow-left"></i> Back
+            <i class="fa-solid fa-arrow-left"></i> Back
         </a>
     </div>
 
@@ -39,8 +53,6 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-
-
 
                             <div class="col-md-6">
                                 <label class="form-label fw-bold">Amount <span class="text-danger">*</span></label>
@@ -97,13 +109,13 @@
                         </div>
 
                         <div class="alert alert-warning" role="alert">
-                            <i class="bi bi-exclamation-triangle"></i> 
+                            <i class="fa-solid fa-triangle-exclamation"></i> 
                             <strong>Important:</strong> You can only edit issuances with <strong>Pending</strong> status.
                         </div>
 
                         <div class="d-flex gap-2">
                             <button type="submit" class="btn btn-primary">
-                                <i class="bi bi-check-circle"></i> Update Issuance
+                                <i class="fa-solid fa-circle-check"></i> Update Issuance
                             </button>
                             <a href="{{ route('money-issuances.index') }}" class="btn btn-outline-secondary">
                                 Cancel
@@ -119,21 +131,19 @@
 </div>
 
 @section('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/choices.js@10.2.0/public/assets/scripts/choices.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize Choices.js for Issued To select
-            new Choices('#issuedToSelect', {
-                searchEnabled: true,
-                searchChoicePosition: 'top',
-                itemSelectText: 'Press to select',
-                placeholderValue: 'Select or type Recipient...',
-                shouldSort: false,
-                allowHTML: false,
-                maxItemCount: 1
-            });
-
-
+            // Form validation
+            const form = document.querySelector('form');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    if (!form.checkValidity()) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                });
+            }
         });
     </script>
 @endsection

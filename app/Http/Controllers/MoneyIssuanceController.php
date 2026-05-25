@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\MoneyIssuance;
 use App\Models\User;
+use App\Notifications\MoneyIssuanceApprovedNotification;
+use App\Notifications\MoneyIssuanceRejectedNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Carbon\Carbon;
 
 class MoneyIssuanceController extends Controller
@@ -168,6 +171,16 @@ class MoneyIssuanceController extends Controller
             'admin_note' => $request->admin_note,
         ]);
 
+        // Send notifications to all admin users
+        $approver = Auth::user();
+        $adminUsers = User::whereHas('role', function ($query) {
+            $query->whereIn('name', ['Admin', 'admin', 'Insurance Admin', 'insurance_admin']);
+        })->where('id', '!=', Auth::id())->get();
+
+        if ($adminUsers->isNotEmpty()) {
+            Notification::send($adminUsers, new MoneyIssuanceApprovedNotification($moneyIssuance, $approver->name));
+        }
+
         return redirect()
             ->route('money-issuances.index')
             ->with('success', 'Money issuance approved successfully.');
@@ -190,6 +203,16 @@ class MoneyIssuanceController extends Controller
             'approved_at' => now(),
             'admin_note' => $request->admin_note,
         ]);
+
+        // Send notifications to all admin users
+        $approver = Auth::user();
+        $adminUsers = User::whereHas('role', function ($query) {
+            $query->whereIn('name', ['Admin', 'admin', 'Insurance Admin', 'insurance_admin']);
+        })->where('id', '!=', Auth::id())->get();
+
+        if ($adminUsers->isNotEmpty()) {
+            Notification::send($adminUsers, new MoneyIssuanceRejectedNotification($moneyIssuance, $approver->name, $request->admin_note));
+        }
 
         return redirect()
             ->route('money-issuances.index')
