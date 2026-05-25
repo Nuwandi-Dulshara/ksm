@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="{{ app()->getLocale() === 'ar' || app()->getLocale() === 'ku' ? 'rtl' : 'ltr' }}" data-lang="{{ app()->getLocale() }}">
 
 <head>
     <meta charset="UTF-8">
@@ -9,12 +9,32 @@
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <!-- RTL/LTR Support -->
+    <link rel="stylesheet" href="{{ asset('css/rtl.css') }}">
+
     <style>
+    * {
+        box-sizing: border-box;
+    }
+
+    html[dir="rtl"] {
+        direction: rtl;
+    }
+
+    html[dir="ltr"] {
+        direction: ltr;
+    }
+
     body {
         background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
     }
 
     .sidebar {
@@ -23,26 +43,71 @@
         color: white;
         position: fixed;
         width: 250px;
+        top: 0;
+        border-left: 4px solid transparent;
+    }
+
+    html[dir="ltr"] .sidebar {
+        left: 0;
+    }
+
+    html[dir="rtl"] .sidebar {
+        right: 0;
     }
 
     .sidebar a {
         color: #cfd8dc;
         text-decoration: none;
         padding: 15px 20px;
-        display: block;
+        display: flex;
+        align-items: center;
         border-left: 4px solid transparent;
+        border-right: none;
+        transition: all 0.3s ease;
+    }
+
+    html[dir="rtl"] .sidebar a {
+        border-left: none;
+        border-right: 4px solid transparent;
     }
 
     .sidebar a:hover,
     .sidebar a.active {
         background-color: #102a71;
-        border-left-color: #3b82f6;
         color: white;
     }
 
+    html[dir="ltr"] .sidebar a:hover,
+    html[dir="ltr"] .sidebar a.active {
+        border-left-color: #3b82f6;
+    }
+
+    html[dir="rtl"] .sidebar a:hover,
+    html[dir="rtl"] .sidebar a.active {
+        border-right-color: #3b82f6;
+    }
+
+    .sidebar a i {
+        margin-right: 12px;
+        margin-left: 0;
+    }
+
+    html[dir="rtl"] .sidebar a i {
+        margin-right: 0;
+        margin-left: 12px;
+    }
+
     .main-content {
-        margin-left: 250px;
         padding: 20px;
+        min-height: 100vh;
+    }
+
+    html[dir="ltr"] .main-content {
+        margin-left: 250px;
+    }
+
+    html[dir="rtl"] .main-content {
+        margin-right: 250px;
     }
 
     .card-metric {
@@ -115,6 +180,142 @@
         background-color: #fef3c7;
         color: #d97706;
     }
+
+    /* Tables RTL/LTR */
+    table {
+        width: 100%;
+    }
+
+    html[dir="rtl"] table th,
+    html[dir="rtl"] table td {
+        text-align: right;
+    }
+
+    html[dir="ltr"] table th,
+    html[dir="ltr"] table td {
+        text-align: left;
+    }
+
+    /* Buttons and Forms */
+    button, .btn {
+        transition: all 0.2s ease;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    input[type="date"],
+    input[type="password"],
+    textarea,
+    select {
+        border-radius: 6px;
+        border: 1px solid #d1d5db;
+    }
+
+    html[dir="rtl"] input,
+    html[dir="rtl"] textarea,
+    html[dir="rtl"] select {
+        text-align: right;
+    }
+
+    html[dir="ltr"] input,
+    html[dir="ltr"] textarea,
+    html[dir="ltr"] select {
+        text-align: left;
+    }
+
+    /* Dropdown menus */
+    .dropdown-menu {
+        text-align: inherit;
+    }
+
+    /* Alert boxes */
+    .alert {
+        border-radius: 8px;
+    }
+
+    html[dir="rtl"] .alert {
+        text-align: right;
+    }
+
+    html[dir="ltr"] .alert {
+        text-align: left;
+    }
+
+    /* Flex utilities for RTL/LTR */
+    .flex-start {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    html[dir="rtl"] .flex-start {
+        flex-direction: row-reverse;
+    }
+
+    .flex-end {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    html[dir="rtl"] .flex-end {
+        flex-direction: row-reverse;
+    }
+
+    /* List items */
+    .nav-link {
+        transition: all 0.2s ease;
+    }
+
+    html[dir="rtl"] .nav-link {
+        text-align: right;
+    }
+
+    html[dir="ltr"] .nav-link {
+        text-align: left;
+    }
+
+    /* Padding and margin utilities for RTL/LTR */
+    html[dir="rtl"] .ps-3 { padding-left: 0; padding-right: 1rem; }
+    html[dir="rtl"] .ps-2 { padding-left: 0; padding-right: 0.5rem; }
+    html[dir="rtl"] .me-2 { margin-right: 0; margin-left: 0.5rem; }
+    html[dir="rtl"] .me-3 { margin-right: 0; margin-left: 0.75rem; }
+    html[dir="rtl"] .ms-10 { margin-right: 2.5rem; margin-left: 0; }
+    html[dir="rtl"] .ms-6 { margin-right: 1.5rem; margin-left: 0; }
+    html[dir="rtl"] .p-0 { padding: 0; }
+
+    /* Icon positioning */
+    .icon-start {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    html[dir="rtl"] .icon-start {
+        flex-direction: row-reverse;
+    }
+
+    /* Badges and chips */
+    .badge {
+        border-radius: 12px;
+    }
+
+    /* Print styles */
+    @media print {
+        .sidebar,
+        .language-switcher-container {
+            display: none;
+        }
+        
+        html[dir="ltr"] .main-content {
+            margin-left: 0;
+        }
+        
+        html[dir="rtl"] .main-content {
+            margin-right: 0;
+        }
+    }
     </style>
     @yield('styles')
     @stack('styles')
@@ -125,10 +326,16 @@
     @include('layouts.sidebar')
 
     <div class="main-content">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap;">
+            <h1 style="margin: 0; font-size: 24px; font-weight: 600;">@yield('page-title', 'Dashboard')</h1>
+            <x-language-switcher />
+        </div>
+        
         @yield('content')
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('js/language-switcher.js') }}"></script>
     <script>
     document.addEventListener('submit', function(event) {
         const form = event.target;

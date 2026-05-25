@@ -107,7 +107,11 @@ return [
     'username' => 'ناوی بەکارهێنەر',
     'role' => 'ڕۆڵ',
     'permissions' => 'دەسەڵاتەکان',
-    'created_at' => 'دروستکراوە لە'
+    'created_at' => 'دروستکراوە لە',
 
+    // Language Switcher
+    'language' => 'زمان',
+    'select_language' => 'زمانێکی هەڵبژێرە',
+    'change_language' => 'گۆڕینی زمان',
 
 ];

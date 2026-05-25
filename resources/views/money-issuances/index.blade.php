@@ -1,6 +1,36 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    .table-responsive {
+        overflow-x: auto;
+    }
+    
+    .money-issuances-table {
+        min-width: 1200px;
+    }
+    
+    .money-issuances-table td {
+        vertical-align: middle;
+    }
+    
+    .btn-group-vertical-xs {
+        display: flex;
+        gap: 0.25rem;
+    }
+    
+    @media (max-width: 768px) {
+        .money-issuances-table {
+            font-size: 0.875rem;
+        }
+        
+        .btn-sm {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+        }
+    }
+</style>
+
 <div class="container-fluid">
     <!-- Page Header -->
     <div class="page-header d-flex justify-content-between align-items-center mb-4">
@@ -119,7 +149,7 @@
     <!-- Issuances Table -->
     <div class="card border-0 shadow-sm">
         <div class="table-responsive">
-            <table class="table table-hover mb-0">
+            <table class="table table-hover mb-0 money-issuances-table">
                 <thead class="table-light">
                     <tr>
                         <th>Recipient</th>
@@ -128,16 +158,16 @@
                         <th>Issued Date</th>
                         <th>Status</th>
                         <th>Approved By</th>
-                        <th>Actions</th>
+                        <th class="text-end">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($issuances as $issuance)
                     <tr>
                         <td>
-                            <strong>{{ $issuance->issuedTo?->name ?? 'Unknown' }}</strong>
+                            <strong>{{ $issuance->issued_to ?? ($issuance->issuedTo?->name ?? 'Unknown') }}</strong>
                             <br>
-                            <small class="text-muted">{{ $issuance->issuedTo?->email }}</small>
+                            <small class="text-muted">{{ $issuance->issuedTo?->email ?? '' }}</small>
                         </td>
                         <td>{{ $issuance->reason }}</td>
                         <td class="fw-bold">{{ number_format($issuance->amount, 0) }} IQ</td>
@@ -160,27 +190,27 @@
                                 <span class="text-muted">-</span>
                             @endif
                         </td>
-                        <td>
-                            <div class="btn-group btn-group-sm" role="group">
+                        <td class="text-end">
+                            <div class="d-flex gap-2 flex-wrap justify-content-end">
                                 <a href="{{ route('money-issuances.show-report', $issuance) }}" 
-                                   class="btn btn-outline-info" title="View Report">
+                                   class="btn btn-outline-info btn-sm" title="View Report">
                                     <i class="bi bi-eye"></i>
                                 </a>
                                 
                                 @if($issuance->status === 'pending')
                                     <a href="{{ route('money-issuances.edit', $issuance) }}" 
-                                       class="btn btn-outline-primary" title="Edit">
+                                       class="btn btn-outline-primary btn-sm" title="Edit">
                                         <i class="bi bi-pencil"></i>
                                     </a>
                                     
-                                    <button type="button" class="btn btn-outline-success" 
+                                    <button type="button" class="btn btn-outline-success btn-sm" 
                                             data-bs-toggle="modal" 
                                             data-bs-target="#approveModal{{ $issuance->id }}"
                                             title="Approve">
                                         <i class="bi bi-check-circle"></i>
                                     </button>
                                     
-                                    <button type="button" class="btn btn-outline-danger" 
+                                    <button type="button" class="btn btn-outline-danger btn-sm" 
                                             data-bs-toggle="modal" 
                                             data-bs-target="#rejectModal{{ $issuance->id }}"
                                             title="Reject">
@@ -190,7 +220,7 @@
                                     <form action="{{ route('money-issuances.destroy', $issuance) }}" method="POST" style="display: inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-outline-secondary" 
+                                        <button type="submit" class="btn btn-outline-secondary btn-sm" 
                                                 onclick="return confirm('Are you sure?')" title="Delete">
                                             <i class="bi bi-trash"></i>
                                         </button>
@@ -198,7 +228,7 @@
                                 @endif
 
                                 <a href="{{ route('money-issuances.print-individual-report', $issuance) }}" 
-                                   class="btn btn-outline-secondary" title="Print Report" target="_blank">
+                                   class="btn btn-outline-secondary btn-sm" title="Print Report" target="_blank">
                                     <i class="bi bi-printer"></i>
                                 </a>
                             </div>
@@ -217,7 +247,7 @@
                                 <form action="{{ route('money-issuances.approve', $issuance) }}" method="POST">
                                     @csrf
                                     <div class="modal-body">
-                                        <p><strong>Recipient:</strong> {{ $issuance->issuedTo?->name }}</p>
+                                        <p><strong>Recipient:</strong> {{ $issuance->issued_to ?? ($issuance->issuedTo?->name ?? 'Unknown') }}</p>
                                         <p><strong>Amount:</strong> {{ number_format($issuance->amount, 0) }} IQ</p>
                                         <p><strong>Reason:</strong> {{ $issuance->reason }}</p>
                                         
@@ -248,7 +278,7 @@
                                 <form action="{{ route('money-issuances.reject', $issuance) }}" method="POST">
                                     @csrf
                                     <div class="modal-body">
-                                        <p><strong>Recipient:</strong> {{ $issuance->issuedTo?->name }}</p>
+                                        <p><strong>Recipient:</strong> {{ $issuance->issued_to ?? ($issuance->issuedTo?->name ?? 'Unknown') }}</p>
                                         <p><strong>Amount:</strong> {{ number_format($issuance->amount, 0) }} IQ</p>
                                         <p><strong>Reason:</strong> {{ $issuance->reason }}</p>
                                         
