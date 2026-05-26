@@ -45,6 +45,7 @@
         width: 250px;
         top: 0;
         border-left: 4px solid transparent;
+        overflow-y: auto;
     }
 
     html[dir="ltr"] .sidebar {
@@ -100,6 +101,8 @@
     .main-content {
         padding: 20px;
         min-height: 100vh;
+        width: auto;
+        overflow-x: hidden;
     }
 
     html[dir="ltr"] .main-content {
@@ -108,6 +111,12 @@
 
     html[dir="rtl"] .main-content {
         margin-right: 250px;
+    }
+
+    .main-content .container-fluid {
+        max-width: 100%;
+        padding-left: var(--bs-gutter-x, 0.75rem);
+        padding-right: var(--bs-gutter-x, 0.75rem);
     }
 
     .card-metric {
